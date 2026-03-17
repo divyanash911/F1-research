@@ -1,0 +1,5 @@
+{
+  "answer_md": "{\n  \"tool\": \"fastf1_driver_pace_overview\",\n  \"parameters\": {\n    \"year\": 2026,\n    \"event\": 1281,\n    \"session\": \"Race\"\n  }\n}\n{\n  \"tool\": \"web_search\",\n  \"parameters\": {\n    \"query\": \"Suzuka 2026 F1 race weekend news 2026 recent incidents\"\n  }\n}",
+  "confidence": 0.5,
+  "evidence": []
+}

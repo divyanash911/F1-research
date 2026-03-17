@@ -1,0 +1,23 @@
+nohup: ignoring input
+INFO:     Started server process [286666]
+INFO:     Waiting for application startup.
+2026-03-16 22:42:06,346 INFO f1_agents.corp - corp_disabled
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2026-03-16 22:42:47,216 INFO httpx - HTTP Request: GET https://api.openf1.org/v1/sessions?year=2026&session_type=Race "HTTP/1.1 200 OK"
+2026-03-16 22:42:47,805 INFO httpx - HTTP Request: GET https://api.openf1.org/v1/weather?meeting_key=1281 "HTTP/1.1 404 Not Found"
+2026-03-16 22:42:48,064 INFO f1_agents.agent - agent_run_start run_id=5316d438f5 msg_len=167 extra_system=True
+2026-03-16 22:42:48,293 INFO httpx - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-16 22:42:48,294 INFO f1_agents.agent - agent_run_start run_id=045c26683e msg_len=702 extra_system=True
+2026-03-16 22:42:48,341 INFO httpx - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-16 22:42:48,343 INFO f1_agents.agent - agent_run_start run_id=6de76e3f98 msg_len=830 extra_system=True
+2026-03-16 22:42:48,387 INFO httpx - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-16 22:42:48,392 INFO f1_agents.agent - agent_run_start run_id=cd2265c087 msg_len=718 extra_system=True
+2026-03-16 22:42:48,443 INFO httpx - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+2026-03-16 22:42:48,445 INFO f1_agents.agent - agent_run_start run_id=e47aef33c6 msg_len=4152 extra_system=True
+2026-03-16 22:42:48,494 INFO httpx - HTTP Request: POST https://openrouter.ai/api/v1/chat/completions "HTTP/1.1 400 Bad Request"
+INFO:     127.0.0.1:53792 - "POST /autonomous/flow/run-once-real HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [286666]

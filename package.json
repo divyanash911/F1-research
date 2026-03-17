@@ -9,9 +9,17 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "chart.js": "^4.5.1",
+    "@langchain/community": "^0.3.49",
+    "@langchain/core": "^0.3.73",
+    "@langchain/langgraph": "^0.4.5",
+    "langchain": "^0.3.33",
     "next": "16.1.6",
+    "openai": "^6.27.0",
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-chartjs-2": "^5.3.1",
+    "react-dom": "19.2.3",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

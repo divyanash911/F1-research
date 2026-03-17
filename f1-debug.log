@@ -1,0 +1,428 @@
+2026-03-13T16:46:14.811Z [DEBUG] [Test-Script] ═══════════════════ STARTING LOGGING TEST - ALL ENDPOINTS ═══════════════════
+2026-03-13T16:46:14.811Z [DEBUG] [OpenF1-Client] Cache MISS for car_data — fetching from API
+{
+  "url": "https://api.openf1.org/v1/car_data?session_key=9158"
+}
+2026-03-13T16:46:20.605Z [ERROR] [OpenF1-Client] ❌ GET https://api.openf1.org/v1/car_data?session_key=9158 → 422 (5793ms)
+{
+  "endpoint": "car_data",
+  "params": {
+    "session_key": 9158
+  },
+  "responseBody": "{\"detail\":\"Failed to retrieve information. You're likely asking for too much data at once.\"}",
+  "statusText": "Unprocessable Entity"
+}
+2026-03-13T16:46:20.605Z [ERROR] [OpenF1-Client] API returned 422 for /car_data
+{
+  "url": "https://api.openf1.org/v1/car_data?session_key=9158",
+  "status": 422,
+  "statusText": "Unprocessable Entity",
+  "body": "{\"detail\":\"Failed to retrieve information. You're likely asking for too much data at once.\"}",
+  "hint": "Unexpected error"
+}
+2026-03-13T16:46:20.956Z [DEBUG] [OpenF1-Client] Cache MISS for location — fetching from API
+{
+  "url": "https://api.openf1.org/v1/location?session_key=9158"
+}
+2026-03-13T16:46:27.394Z [ERROR] [OpenF1-Client] ❌ GET https://api.openf1.org/v1/location?session_key=9158 → 422 (6437ms)
+{
+  "endpoint": "location",
+  "params": {
+    "session_key": 9158
+  },
+  "responseBody": "{\"detail\":\"Failed to retrieve information. You're likely asking for too much data at once.\"}",
+  "statusText": "Unprocessable Entity"
+}
+2026-03-13T16:46:27.394Z [ERROR] [OpenF1-Client] API returned 422 for /location
+{
+  "url": "https://api.openf1.org/v1/location?session_key=9158",
+  "status": 422,
+  "statusText": "Unprocessable Entity",
+  "body": "{\"detail\":\"Failed to retrieve information. You're likely asking for too much data at once.\"}",
+  "hint": "Unexpected error"
+}
+2026-03-13T16:46:27.746Z [DEBUG] [OpenF1-Client] Cache MISS for laps — fetching from API
+{
+  "url": "https://api.openf1.org/v1/laps?session_key=9158"
+}
+2026-03-13T16:46:28.833Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/laps?session_key=9158 → 200 (467ms)
+2026-03-13T16:46:28.833Z [DEBUG] [OpenF1-Client] 📊 laps: 475 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:29.185Z [DEBUG] [OpenF1-Client] Cache MISS for stints — fetching from API
+{
+  "url": "https://api.openf1.org/v1/stints?session_key=9158"
+}
+2026-03-13T16:46:29.446Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/stints?session_key=9158 → 200 (261ms)
+2026-03-13T16:46:29.446Z [DEBUG] [OpenF1-Client] 📊 stints: 73 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:29.798Z [DEBUG] [OpenF1-Client] Cache MISS for weather — fetching from API
+{
+  "url": "https://api.openf1.org/v1/weather?session_key=9158"
+}
+2026-03-13T16:46:29.996Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/weather?session_key=9158 → 200 (197ms)
+2026-03-13T16:46:29.996Z [DEBUG] [OpenF1-Client] 📊 weather: 82 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:30.347Z [DEBUG] [OpenF1-Client] Cache MISS for intervals — fetching from API
+{
+  "url": "https://api.openf1.org/v1/intervals?session_key=9158"
+}
+2026-03-13T16:46:30.537Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/intervals?session_key=9158 → 204 (189ms)
+2026-03-13T16:46:30.537Z [DEBUG] [OpenF1-Client] No results found for /intervals
+{
+  "url": "https://api.openf1.org/v1/intervals?session_key=9158",
+  "params": {
+    "session_key": 9158
+  }
+}
+2026-03-13T16:46:30.888Z [DEBUG] [OpenF1-Client] Cache MISS for pit — fetching from API
+{
+  "url": "https://api.openf1.org/v1/pit?session_key=9158"
+}
+2026-03-13T16:46:31.082Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/pit?session_key=9158 → 200 (193ms)
+2026-03-13T16:46:31.082Z [DEBUG] [OpenF1-Client] 📊 pit: 73 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:31.432Z [DEBUG] [OpenF1-Client] Cache MISS for overtakes — fetching from API
+{
+  "url": "https://api.openf1.org/v1/overtakes?session_key=9158"
+}
+2026-03-13T16:46:31.610Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/overtakes?session_key=9158 → 204 (178ms)
+2026-03-13T16:46:31.611Z [DEBUG] [OpenF1-Client] No results found for /overtakes
+{
+  "url": "https://api.openf1.org/v1/overtakes?session_key=9158",
+  "params": {
+    "session_key": 9158
+  }
+}
+2026-03-13T16:46:31.962Z [DEBUG] [OpenF1-Client] Cache MISS for race_control — fetching from API
+{
+  "url": "https://api.openf1.org/v1/race_control?session_key=9158"
+}
+2026-03-13T16:46:32.141Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/race_control?session_key=9158 → 200 (178ms)
+2026-03-13T16:46:32.141Z [DEBUG] [OpenF1-Client] 📊 race_control: 21 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:32.493Z [DEBUG] [OpenF1-Client] Cache MISS for team_radio — fetching from API
+{
+  "url": "https://api.openf1.org/v1/team_radio?session_key=9158"
+}
+2026-03-13T16:46:32.672Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/team_radio?session_key=9158 → 200 (179ms)
+2026-03-13T16:46:32.672Z [DEBUG] [OpenF1-Client] 📊 team_radio: 29 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:33.022Z [DEBUG] [OpenF1-Client] Cache MISS for drivers — fetching from API
+{
+  "url": "https://api.openf1.org/v1/drivers?session_key=9158"
+}
+2026-03-13T16:46:33.203Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/drivers?session_key=9158 → 200 (179ms)
+2026-03-13T16:46:33.203Z [DEBUG] [OpenF1-Client] 📊 drivers: 20 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:33.553Z [DEBUG] [OpenF1-Client] Cache MISS for sessions — fetching from API
+{
+  "url": "https://api.openf1.org/v1/sessions?year=2026"
+}
+2026-03-13T16:46:34.117Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/sessions?year=2026 → 200 (395ms)
+2026-03-13T16:46:34.117Z [DEBUG] [OpenF1-Client] 📊 sessions: 126 results
+{
+  "year": 2026
+}
+2026-03-13T16:46:34.467Z [DEBUG] [OpenF1-Client] Cache MISS for meetings — fetching from API
+{
+  "url": "https://api.openf1.org/v1/meetings?year=2026"
+}
+2026-03-13T16:46:34.667Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/meetings?year=2026 → 200 (199ms)
+2026-03-13T16:46:34.668Z [DEBUG] [OpenF1-Client] 📊 meetings: 26 results
+{
+  "year": 2026
+}
+2026-03-13T16:46:35.019Z [DEBUG] [OpenF1-Client] Cache MISS for position — fetching from API
+{
+  "url": "https://api.openf1.org/v1/position?session_key=9158"
+}
+2026-03-13T16:46:35.901Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/position?session_key=9158 → 200 (451ms)
+2026-03-13T16:46:35.901Z [DEBUG] [OpenF1-Client] 📊 position: 875 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:36.251Z [DEBUG] [OpenF1-Client] Cache MISS for session_result — fetching from API
+{
+  "url": "https://api.openf1.org/v1/session_result?session_key=9158"
+}
+2026-03-13T16:46:36.436Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/session_result?session_key=9158 → 200 (183ms)
+2026-03-13T16:46:36.436Z [DEBUG] [OpenF1-Client] 📊 session_result: 20 results
+{
+  "session_key": 9158
+}
+2026-03-13T16:46:36.787Z [DEBUG] [OpenF1-Client] Cache MISS for starting_grid — fetching from API
+{
+  "url": "https://api.openf1.org/v1/starting_grid?session_key=9158"
+}
+2026-03-13T16:46:36.964Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/starting_grid?session_key=9158 → 204 (176ms)
+2026-03-13T16:46:36.964Z [DEBUG] [OpenF1-Client] No results found for /starting_grid
+{
+  "url": "https://api.openf1.org/v1/starting_grid?session_key=9158",
+  "params": {
+    "session_key": 9158
+  }
+}
+2026-03-13T16:46:37.315Z [DEBUG] [OpenF1-Client] Cache MISS for championship_drivers — fetching from API
+{
+  "url": "https://api.openf1.org/v1/championship_drivers?session_key=9158"
+}
+2026-03-13T16:46:37.534Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/championship_drivers?session_key=9158 → 204 (219ms)
+2026-03-13T16:46:37.534Z [DEBUG] [OpenF1-Client] No results found for /championship_drivers
+{
+  "url": "https://api.openf1.org/v1/championship_drivers?session_key=9158",
+  "params": {
+    "session_key": 9158
+  }
+}
+2026-03-13T16:46:37.885Z [DEBUG] [OpenF1-Client] Cache MISS for championship_teams — fetching from API
+{
+  "url": "https://api.openf1.org/v1/championship_teams?session_key=9158"
+}
+2026-03-13T16:46:38.147Z [DEBUG] [OpenF1-Client] ✅ GET https://api.openf1.org/v1/championship_teams?session_key=9158 → 204 (261ms)
+2026-03-13T16:46:38.147Z [DEBUG] [OpenF1-Client] No results found for /championship_teams
+{
+  "url": "https://api.openf1.org/v1/championship_teams?session_key=9158",
+  "params": {
+    "session_key": 9158
+  }
+}
+2026-03-13T16:46:38.498Z [DEBUG] [Test-Script] ═══════════════════ LOGGING TEST COMPLETE ═══════════════════
+2026-03-13T16:50:26.412Z [INFO] [API-Agent-News] GET /api/agents/news
+2026-03-13T16:50:26.413Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "general",
+  "namespace": "f1_news",
+  "messagePreview": "Fetch the most important current Formula 1 news and context. Produce 6-10 items prioritized by relevance to upcoming race performance. If claims are u..."
+}
+2026-03-13T16:50:26.419Z [INFO] [API-Agent-Prediction] GET /api/agents/prediction
+2026-03-13T16:50:26.420Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "predict_pipeline",
+  "namespace": "f1_prediction",
+  "messagePreview": "Generate the best possible prediction for the next F1 race. Use the pipeline: season_form + tyre_weather + news, then synthesize. Produce a 22-driver ..."
+}
+2026-03-13T16:54:11.766Z [ERROR] [PythonAgents] 🚫 Cannot reach Python agent service at http://localhost:8001
+{
+  "error": "fetch failed",
+  "durationMs": 225345,
+  "hint": "The Python agents service is not running. Start it:\n  cd agents_py && source .venv/bin/activate && python -m f1_agents_service\n\nOr set PY_AGENTS_URL env variable to point to the running service."
+}
+2026-03-13T16:54:11.766Z [ERROR] [API-Agent-Prediction] ❌ GET /api/agents/prediction failed
+{
+  "error": {
+    "message": "fetch failed",
+    "stack": "TypeError: fetch failed\n    at node:internal/deps/undici/undici:13502:13\n    at async callPythonAgentTyped (/home/divyansh/f1/.next/dev/server/chunks/[root-of-the-server]__f0c2566b._.js:234:21)\n    at async GET (/home/divyansh/f1/.next/dev/server/chunks/[root-of-the-server]__0ece9b9a._.js:307:22)\n    at async AppRouteRouteModule.do (/home/divyansh/f1/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37866)\n    at async AppRouteRouteModule.handle (/home/divyansh/f1/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45156)\n    at async responseGenerator (/home/divyansh/f1/.next/dev/server/chunks/node_modules_next_f1301178._.js:15344:38)\n    at async AppRouteRouteModule.handleResponse (/home/divyansh/f1/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:1:191938)\n    at async handleResponse (/home/divyansh/f1/.next/dev/server/chunks/node_modules_next_f1301178._.js:15407:32)\n    at async Module.handler (/home/divyansh/f1/.next/dev/server/chunks/node_modules_next_f1301178._.js:15460:13)\n    at async DevServer.renderToResponseWithComponentsImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1442:9)\n    at async DevServer.renderPageComponent (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1494:24)\n    at async DevServer.renderToResponseImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1544:32)\n    at async DevServer.pipeImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1038:25)\n    at async NextNodeServer.handleCatchallRenderRequest (/home/divyansh/f1/node_modules/next/dist/server/next-server.js:395:17)\n    at async DevServer.handleRequestImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:929:17)\n    at async /home/divyansh/f1/node_modules/next/dist/server/dev/next-dev-server.js:387:20\n    at async Span.traceAsyncFn (/home/divyansh/f1
+... [truncated, 2631 chars total]
+2026-03-13T16:54:11.779Z [ERROR] [PythonAgents] 🚫 Cannot reach Python agent service at http://localhost:8001
+{
+  "error": "fetch failed",
+  "durationMs": 225365,
+  "hint": "The Python agents service is not running. Start it:\n  cd agents_py && source .venv/bin/activate && python -m f1_agents_service\n\nOr set PY_AGENTS_URL env variable to point to the running service."
+}
+2026-03-13T16:54:11.779Z [ERROR] [API-Agent-News] ❌ GET /api/agents/news failed
+{
+  "error": {
+    "message": "fetch failed",
+    "stack": "TypeError: fetch failed\n    at node:internal/deps/undici/undici:13502:13\n    at async callPythonAgentTyped (/home/divyansh/f1/.next/dev/server/chunks/[root-of-the-server]__f0c2566b._.js:234:21)\n    at async GET (/home/divyansh/f1/.next/dev/server/chunks/[root-of-the-server]__f0c2566b._.js:307:22)\n    at async AppRouteRouteModule.do (/home/divyansh/f1/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:37866)\n    at async AppRouteRouteModule.handle (/home/divyansh/f1/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:45156)\n    at async responseGenerator (/home/divyansh/f1/.next/dev/server/chunks/node_modules_next_e7b8ac02._.js:15344:38)\n    at async AppRouteRouteModule.handleResponse (/home/divyansh/f1/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:1:191938)\n    at async handleResponse (/home/divyansh/f1/.next/dev/server/chunks/node_modules_next_e7b8ac02._.js:15407:32)\n    at async Module.handler (/home/divyansh/f1/.next/dev/server/chunks/node_modules_next_e7b8ac02._.js:15460:13)\n    at async DevServer.renderToResponseWithComponentsImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1442:9)\n    at async DevServer.renderPageComponent (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1494:24)\n    at async DevServer.renderToResponseImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1544:32)\n    at async DevServer.pipeImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:1038:25)\n    at async NextNodeServer.handleCatchallRenderRequest (/home/divyansh/f1/node_modules/next/dist/server/next-server.js:395:17)\n    at async DevServer.handleRequestImpl (/home/divyansh/f1/node_modules/next/dist/server/base-server.js:929:17)\n    at async /home/divyansh/f1/node_modules/next/dist/server/dev/next-dev-server.js:387:20\n    at async Span.traceAsyncFn (/home/divyansh/f1
+... [truncated, 2631 chars total]
+2026-03-13T16:55:23.342Z [INFO] [API-Agent-News] GET /api/agents/news
+2026-03-13T16:55:23.342Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "general",
+  "namespace": "f1_news",
+  "messagePreview": "Fetch the most important current Formula 1 news and context. Produce 6-10 items prioritized by relevance to upcoming race performance. If claims are u..."
+}
+2026-03-13T16:55:23.350Z [INFO] [API-Agent-Prediction] GET /api/agents/prediction
+2026-03-13T16:55:23.351Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "predict_pipeline",
+  "namespace": "f1_prediction",
+  "messagePreview": "Generate the best possible prediction for the next F1 race. Use the pipeline: season_form + tyre_weather + news, then synthesize. Produce a 22-driver ..."
+}
+2026-03-13T16:55:27.217Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 3873,
+  "answerLength": 67,
+  "toolCallCount": 0
+}
+2026-03-13T16:55:27.218Z [INFO] [API-Agent-News] ✅ GET /api/agents/news success
+{
+  "durationMs": 3876,
+  "itemCount": 0
+}
+2026-03-13T16:57:03.757Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 100404,
+  "answerLength": 1932,
+  "toolCallCount": 0
+}
+2026-03-13T16:57:03.758Z [INFO] [API-Agent-Prediction] ✅ GET /api/agents/prediction success
+{
+  "durationMs": 100406
+}
+2026-03-13T17:00:59.237Z [INFO] [API-Agent-Prediction] GET /api/agents/prediction
+2026-03-13T17:00:59.238Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "predict_pipeline",
+  "namespace": "f1_prediction",
+  "messagePreview": "Generate the best possible prediction for the next F1 race. Use the pipeline: season_form + tyre_weather + news, then synthesize. Produce a 22-driver ..."
+}
+2026-03-13T17:00:59.264Z [INFO] [API-Agent-News] GET /api/agents/news
+2026-03-13T17:00:59.265Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "general",
+  "namespace": "f1_news",
+  "messagePreview": "Fetch the most important current Formula 1 news and context. Produce 6-10 items prioritized by relevance to upcoming race performance. If claims are u..."
+}
+2026-03-13T17:01:02.726Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 3456,
+  "answerLength": 67,
+  "toolCallCount": 0
+}
+2026-03-13T17:01:02.727Z [INFO] [API-Agent-News] ✅ GET /api/agents/news success
+{
+  "durationMs": 3461,
+  "itemCount": 0
+}
+2026-03-13T17:02:41.331Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 102082,
+  "answerLength": 1862,
+  "toolCallCount": 0
+}
+2026-03-13T17:02:41.334Z [INFO] [API-Agent-Prediction] ✅ GET /api/agents/prediction success
+{
+  "durationMs": 102096
+}
+2026-03-13T18:18:09.703Z [INFO] [API-Agent-News] GET /api/agents/news
+2026-03-13T18:18:09.703Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "general",
+  "namespace": "f1_news",
+  "messagePreview": "Fetch the most important current Formula 1 news and context. Produce 6-10 items prioritized by relevance to upcoming race performance. If claims are u..."
+}
+2026-03-13T18:18:09.706Z [INFO] [API-Agent-Prediction] GET /api/agents/prediction
+2026-03-13T18:18:09.706Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "predict_pipeline",
+  "namespace": "f1_prediction",
+  "messagePreview": "Generate the best possible prediction for the next F1 race. Use the pipeline: season_form + tyre_weather + news, then synthesize. Produce a 22-driver ..."
+}
+2026-03-13T18:18:18.921Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 9216,
+  "answerLength": 3796,
+  "toolCallCount": 0
+}
+2026-03-13T18:18:18.922Z [INFO] [API-Agent-News] ✅ GET /api/agents/news success
+{
+  "durationMs": 9218,
+  "itemCount": 7
+}
+2026-03-13T18:21:48.969Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 219262,
+  "answerLength": 1494,
+  "toolCallCount": 0
+}
+2026-03-13T18:21:48.970Z [INFO] [API-Agent-Prediction] ✅ GET /api/agents/prediction success
+{
+  "durationMs": 219263
+}
+2026-03-13T18:28:22.479Z [INFO] [API-Agent-News] GET /api/agents/news
+2026-03-13T18:28:22.479Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "general",
+  "namespace": "f1_news",
+  "messagePreview": "Fetch the most important current Formula 1 news and context. Produce 6-10 items prioritized by relevance to upcoming race performance. If claims are u..."
+}
+2026-03-13T18:28:22.484Z [INFO] [API-Agent-Prediction] GET /api/agents/prediction
+2026-03-13T18:28:22.485Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "predict_pipeline",
+  "namespace": "f1_prediction",
+  "messagePreview": "Generate the best possible prediction for the next F1 race. Use the pipeline: season_form + tyre_weather + news, then synthesize. Produce a 22-driver ..."
+}
+2026-03-13T18:28:33.602Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 11122,
+  "answerLength": 4665,
+  "toolCallCount": 0
+}
+2026-03-13T18:28:33.603Z [INFO] [API-Agent-News] ✅ GET /api/agents/news success
+{
+  "durationMs": 11124,
+  "itemCount": 7
+}
+2026-03-13T18:29:12.626Z [INFO] [API-Agent-Prediction] GET /api/agents/prediction
+2026-03-13T18:29:12.626Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "predict_pipeline",
+  "namespace": "f1_prediction",
+  "messagePreview": "Generate the best possible prediction for the next F1 race. Use the pipeline: season_form + tyre_weather + news, then synthesize. Produce a 22-driver ..."
+}
+2026-03-13T18:29:12.630Z [INFO] [API-Agent-News] GET /api/agents/news
+2026-03-13T18:29:12.630Z [INFO] [PythonAgents] 📡 Calling Python agent service
+{
+  "url": "http://localhost:8001/agent/run",
+  "agent_type": "general",
+  "namespace": "f1_news",
+  "messagePreview": "Fetch the most important current Formula 1 news and context. Produce 6-10 items prioritized by relevance to upcoming race performance. If claims are u..."
+}
+2026-03-13T18:29:21.130Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 8499,
+  "answerLength": 3425,
+  "toolCallCount": 0
+}
+2026-03-13T18:29:21.131Z [INFO] [API-Agent-News] ✅ GET /api/agents/news success
+{
+  "durationMs": 8500,
+  "itemCount": 6
+}
+2026-03-13T18:31:23.414Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 130787,
+  "answerLength": 1878,
+  "toolCallCount": 0
+}
+2026-03-13T18:31:23.414Z [INFO] [API-Agent-Prediction] ✅ GET /api/agents/prediction success
+{
+  "durationMs": 130788
+}
+2026-03-13T18:31:38.244Z [INFO] [PythonAgents] ✅ Python agent responded
+{
+  "durationMs": 195757,
+  "answerLength": 1897,
+  "toolCallCount": 0
+}
+2026-03-13T18:31:38.246Z [INFO] [API-Agent-Prediction] ✅ GET /api/agents/prediction success
+{
+  "durationMs": 195761
+}

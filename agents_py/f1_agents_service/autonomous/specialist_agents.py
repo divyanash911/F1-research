@@ -39,6 +39,7 @@ class SpecialistFinding:
     tags: list[str]
     evidence: list[dict]         # [{source_type, source_id, title, quote}]
     follow_up_questions: list[str] = field(default_factory=list)
+    follow_up_allowed: bool = True
     exploration_depth: int = 1   # how many tool-call rounds the agent did
     raw_tool_calls: list[str] = field(default_factory=list)
 
@@ -396,6 +397,7 @@ def parse_specialist_finding(
         tags=obj.get("tags") or [question.department],
         evidence=evidence,
         follow_up_questions=obj.get("follow_up_questions") or [],
+        follow_up_allowed=question.follow_up_allowed,
         exploration_depth=exploration_depth,
         raw_tool_calls=[],
     )

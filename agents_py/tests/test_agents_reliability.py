@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 
 from langchain_core.messages import AIMessage
+import pytest
 
 from f1_agents_service.agent_graph import run_agent
 from f1_agents_service.autonomous.corporation import _collect_follow_up_questions
@@ -69,13 +70,5 @@ def test_run_agent_strict_grounding_raises(monkeypatch):
     dummy = _DummyAgent([AIMessage(content=""), AIMessage(content="See https://example.com/f1 for latest race results.")])
     monkeypatch.setenv("AGENTS_STRICT_GROUNDING", "1")
 
-    try:
-        raised = False
-        try:
-            asyncio.run(run_agent(dummy, user_message="latest race results", extra_system=None))
-        except RuntimeError:
-            raised = True
-    finally:
-        monkeypatch.delenv("AGENTS_STRICT_GROUNDING", raising=False)
-
-    assert raised is True
+    with pytest.raises(RuntimeError):
+        asyncio.run(run_agent(dummy, user_message="latest race results", extra_system=None))

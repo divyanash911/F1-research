@@ -376,7 +376,7 @@ async def run_agent(
     tool_calls: list[dict[str, Any]] = []
     tool_call_keys: set[str] = set()
 
-    def _record_tool_call(tc: Any) -> None:
+    def _record_unique_tool_call(tc: Any) -> None:
         if not isinstance(tc, dict):
             return
         key = json.dumps(tc, sort_keys=True, default=str)
@@ -388,11 +388,11 @@ async def run_agent(
     for m in out.get("messages", []):
         msg_tool_calls = getattr(m, "tool_calls", None) or []
         for tc in msg_tool_calls:
-            _record_tool_call(tc)
+            _record_unique_tool_call(tc)
         additional = getattr(m, "additional_kwargs", None) or {}
         if "tool_calls" in additional:
             for tc in additional["tool_calls"] or []:
-                _record_tool_call(tc)
+                _record_unique_tool_call(tc)
 
     # Log tool calls (names + args) for visibility. This is NOT chain-of-thought.
     if tool_calls:
@@ -430,15 +430,17 @@ async def run_agent(
     # Grounding check
     grounding_ok, grounding_issues = _check_grounding(final_text, len(tool_calls), user_message)
     if not grounding_ok:
+        strict_grounding = os.getenv("AGENTS_STRICT_GROUNDING", "0") == "1"
+        log_fn = logger.error if strict_grounding else logger.warning
         for issue in grounding_issues:
-            logger.error("grounding_fail run_id=%s issue=%s", run_id, issue)
+            log_fn("grounding_fail run_id=%s issue=%s", run_id, issue)
         final_text = (
             "__GROUNDING_FAILED__\n"
             "Hallucination signals detected:\n"
             + "\n".join(f"  - {i}" for i in grounding_issues)
             + "\n\nRaw output (do not treat as fact):\n" + final_text
         )
-        if os.getenv("AGENTS_STRICT_GROUNDING", "0") == "1":
+        if strict_grounding:
             raise RuntimeError("Grounding failed: " + "; ".join(grounding_issues))
 
     # Log grounding result

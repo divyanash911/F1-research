@@ -73,6 +73,8 @@ MAX_FOLLOW_UP_QUESTIONS  = int(os.getenv("CORP_MAX_FOLLOW_UP_QUESTIONS", "4"))
 DEBATE_ROUNDS            = int(os.getenv("CORP_DEBATE_ROUNDS", "1"))   # 0 = skip debate
 SPECIALIST_CONCURRENCY   = int(os.getenv("CORP_SPECIALIST_CONCURRENCY", "3"))
 MAX_SPECIALIST_TIMEOUT_SECONDS = int(os.getenv("CORP_MAX_SPECIALIST_TIMEOUT_SECONDS", "180"))
+# Filters out trivial fragments like "why?" while allowing normal sentence-like prompts.
+MIN_FOLLOW_UP_QUESTION_LENGTH = 10
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -172,7 +174,7 @@ def _collect_follow_up_questions(findings: list[SpecialistFinding], budget: int)
             continue
         for q in f.follow_up_questions:
             q_norm = (q or "").strip()
-            if len(q_norm) < 10:
+            if len(q_norm) < MIN_FOLLOW_UP_QUESTION_LENGTH:
                 continue
             if q_norm in seen:
                 continue
@@ -392,6 +394,13 @@ async def _run_specialist(
     """
     system = DEPT_SYSTEMS.get(question.department, DEPT_SYSTEMS["general"])
     prompt = build_specialist_prompt(question, context, prior_findings_summary)
+    timeout_seconds = MAX_SPECIALIST_TIMEOUT_SECONDS
+    if timeout_seconds < 1:
+        logger.warning(
+            "invalid_specialist_timeout configured=%d using=1",
+            timeout_seconds,
+        )
+        timeout_seconds = 1
 
     exploration_depth = 0
     last_finding: SpecialistFinding | None = None
@@ -414,7 +423,7 @@ async def _run_specialist(
         try:
             res = await asyncio.wait_for(
                 run_agent(agent, user_message=prompt, extra_system=system),
-                timeout=max(1, MAX_SPECIALIST_TIMEOUT_SECONDS),
+                timeout=timeout_seconds,
             )
         except asyncio.TimeoutError:
             logger.warning(
@@ -422,7 +431,7 @@ async def _run_specialist(
                 question.id,
                 question.department,
                 exploration_depth,
-                MAX_SPECIALIST_TIMEOUT_SECONDS,
+                timeout_seconds,
             )
             timeout_msg = (
                 "Specialist timed out before completing this round. "

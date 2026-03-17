@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# python (agents_py)
+**/__pycache__/
+*.pyc
+*.egg-info/
+agents_py/agent_thought.log

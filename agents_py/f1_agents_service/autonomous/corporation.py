@@ -72,6 +72,7 @@ MAX_EXPLORATION_ROUNDS   = int(os.getenv("CORP_MAX_EXPLORATION_ROUNDS", "3"))
 MAX_FOLLOW_UP_QUESTIONS  = int(os.getenv("CORP_MAX_FOLLOW_UP_QUESTIONS", "4"))
 DEBATE_ROUNDS            = int(os.getenv("CORP_DEBATE_ROUNDS", "1"))   # 0 = skip debate
 SPECIALIST_CONCURRENCY   = int(os.getenv("CORP_SPECIALIST_CONCURRENCY", "3"))
+MAX_SPECIALIST_TIMEOUT_SECONDS = int(os.getenv("CORP_MAX_SPECIALIST_TIMEOUT_SECONDS", "180"))
 # ─────────────────────────────────────────────────────────────────────────────
 
 
@@ -158,6 +159,28 @@ def _summarize_findings(findings: list[SpecialistFinding]) -> str:
             f"[{f.department.upper()}] (conf={f.confidence:.2f}) {f.answer_md[:200].replace(chr(10), ' ')}"
         )
     return "\n".join(lines)
+
+
+def _collect_follow_up_questions(findings: list[SpecialistFinding], budget: int) -> list[str]:
+    """Collect valid, deduplicated follow-up questions up to a hard budget."""
+    if budget <= 0:
+        return []
+    out: list[str] = []
+    seen: set[str] = set()
+    for f in findings:
+        if not f.follow_up_allowed:
+            continue
+        for q in f.follow_up_questions:
+            q_norm = (q or "").strip()
+            if len(q_norm) < 10:
+                continue
+            if q_norm in seen:
+                continue
+            seen.add(q_norm)
+            out.append(q_norm)
+            if len(out) >= budget:
+                return out
+    return out
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -388,7 +411,38 @@ async def _run_specialist(
             )
             prompt = refine_prompt
 
-        res = await run_agent(agent, user_message=prompt, extra_system=system)
+        try:
+            res = await asyncio.wait_for(
+                run_agent(agent, user_message=prompt, extra_system=system),
+                timeout=max(1, MAX_SPECIALIST_TIMEOUT_SECONDS),
+            )
+        except asyncio.TimeoutError:
+            logger.warning(
+                "specialist_timeout question_id=%s dept=%s round=%d timeout_s=%d",
+                question.id,
+                question.department,
+                exploration_depth,
+                MAX_SPECIALIST_TIMEOUT_SECONDS,
+            )
+            timeout_msg = (
+                "Specialist timed out before completing this round. "
+                "Result may be incomplete."
+            )
+            if last_finding:
+                last_finding.answer_md = f"{last_finding.answer_md}\n\n{timeout_msg}"
+                break
+            return SpecialistFinding(
+                question_id=question.id,
+                department=question.department,
+                question=question.question,
+                answer_md=timeout_msg,
+                confidence=0.0,
+                tags=[question.department, "timeout"],
+                evidence=[],
+                follow_up_questions=[],
+                exploration_depth=exploration_depth,
+                raw_tool_calls=[],
+            )
         finding = parse_specialist_finding(question, res.get("answer", ""), exploration_depth)
         last_finding = finding
 
@@ -779,7 +833,21 @@ class F1ResearchCorporation:
             _enrich_historical_same_track(agent, self.state),
             _enrich_telemetry_season_trend(agent, self.state),
         ]
-        await asyncio.gather(*enrich_tasks, return_exceptions=True)
+        enrich_names = [
+            "recent_results",
+            "standings",
+            "historical_same_track",
+            "telemetry_season_trend",
+        ]
+        enrich_results = await asyncio.gather(*enrich_tasks, return_exceptions=True)
+        for name, result in zip(enrich_names, enrich_results):
+            if isinstance(result, Exception):
+                logger.warning(
+                    "research_cycle_enrich_failed run_id=%s task=%s err=%s",
+                    run_id,
+                    name,
+                    str(result)[:300],
+                )
 
         # ── Step 2: Director generates agenda ───────────────────────────
         logger.info("research_cycle_director run_id=%s", run_id)
@@ -844,11 +912,7 @@ class F1ResearchCorporation:
                 findings.append(f)
 
         # Phase C: follow-up questions from specialists
-        all_follow_ups: list[str] = []
-        for f in findings:
-            if f.follow_up_allowed if hasattr(f, 'follow_up_allowed') else True:
-                all_follow_ups.extend(f.follow_up_questions)
-        all_follow_ups = all_follow_ups[:follow_up_budget]
+        all_follow_ups = _collect_follow_up_questions(findings, follow_up_budget)
 
         if all_follow_ups:
             fu_summary = _summarize_findings(findings)

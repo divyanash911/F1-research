@@ -14,5 +14,6 @@ f1_agents_service/pipeline.py
 f1_agents_service/settings.py
 f1_agents_service/tools.py
 f1_agents_service/tools_fastf1.py
+tests/test_autonomous_publish.py
 tests/test_fastf1_tools.py
 tests/test_kb.py

@@ -1,1 +1,5 @@
 .env
+telemetry_cache/
+__pycache__/
+*.log
+*.tmp

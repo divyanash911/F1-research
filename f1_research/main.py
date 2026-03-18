@@ -26,6 +26,7 @@ import random
 from datetime import datetime, timedelta
 from pathlib import Path
 from dotenv import load_dotenv
+from crewai.tasks.task_output import TaskOutput
 
 # Load env first
 load_dotenv()
@@ -116,6 +117,80 @@ def _fallback_insight_type(crew_name: str) -> str:
     if "news" in name:
         return "technical_discovery"
     return "trend_analysis"
+
+
+def _compact_json_value(value, depth: int = 0):
+    if depth >= 2:
+        if isinstance(value, list):
+            return f"<list len={len(value)}>"
+        if isinstance(value, dict):
+            return f"<dict keys={list(value.keys())[:5]}>"
+        return value
+    if isinstance(value, dict):
+        out = {}
+        for idx, (k, v) in enumerate(value.items()):
+            if idx >= 8:
+                out["_truncated"] = f"{len(value) - 8} more keys"
+                break
+            out[k] = _compact_json_value(v, depth + 1)
+        return out
+    if isinstance(value, list):
+        return [_compact_json_value(v, depth + 1) for v in value[:5]] + ([f"... {len(value) - 5} more items"] if len(value) > 5 else [])
+    return value
+
+
+def _compact_text_payload(text: str, max_chars: int = 1800) -> str:
+    text = (text or "").strip()
+    if not text:
+        return ""
+    try:
+        parsed = json.loads(text)
+        compact = _compact_json_value(parsed)
+        rendered = json.dumps(compact, indent=2)
+        if len(rendered) <= max_chars:
+            return rendered
+        return rendered[: max_chars - 40].rstrip() + "\n... <truncated>"
+    except Exception:
+        if len(text) <= max_chars:
+            return text
+        head = text[: int(max_chars * 0.75)].rstrip()
+        tail = text[-int(max_chars * 0.15):].lstrip()
+        return f"{head}\n...\n{tail}"
+
+
+def _compact_task_output(task_output: TaskOutput, max_chars: int = 1800) -> TaskOutput:
+    compact_raw = _compact_text_payload(task_output.raw or str(task_output), max_chars=max_chars)
+    compact_summary = _compact_text_payload(task_output.summary or compact_raw, max_chars=min(700, max_chars))
+    return TaskOutput(
+        description=task_output.description,
+        name=task_output.name,
+        expected_output=task_output.expected_output,
+        summary=compact_summary,
+        raw=compact_raw,
+        pydantic=None,
+        json_dict=None,
+        agent=task_output.agent,
+        output_format=task_output.output_format,
+    )
+
+
+def _publish_task_checkpoint(crew_name: str, task_index: int, description: str, agent_role: str, compact_output: str) -> None:
+    if os.getenv("PUBLISH_TASK_CHECKPOINTS", "true").lower() not in {"1", "true", "yes", "on"}:
+        return
+    content = (
+        f"**Crew:** {crew_name}\n"
+        f"**Task:** {task_index + 1}\n"
+        f"**Agent:** {agent_role}\n\n"
+        f"**Task Description Preview:** {description[:300]}\n\n"
+        f"## Checkpoint Summary\n\n{compact_output or '_No output captured._'}"
+    )
+    log_insight(
+        _fallback_insight_type(crew_name),
+        f"{crew_name} Task {task_index + 1} Checkpoint",
+        content,
+        confidence=0.45,
+        tags=["checkpoint", crew_name.lower().replace(" ", "_"), f"task_{task_index + 1}"],
+    )
 
 
 def _publish_fallback_from_checkpoints(crew_name: str, run_state: RunState, last_exc: Exception | None) -> bool:
@@ -216,7 +291,9 @@ def run_crew_safe(crew, crew_name: str, session: ResearchSession, rebuild_crew_f
                         continue
                     # Execute a single task
                     task_output = task.execute_sync()
-                    final_result = task_output
+                    compact_output = _compact_task_output(task_output)
+                    task.output = compact_output
+                    final_result = compact_output
 
                     # Persist checkpoint
                     agent = getattr(task, "agent", None)
@@ -227,9 +304,10 @@ def run_crew_safe(crew, crew_name: str, session: ResearchSession, rebuild_crew_f
                             index=i,
                             description_preview=desc[:160],
                             agent_role=agent_role,
-                            output=str(task_output),
+                            output=compact_output.raw,
                         )
                     )
+                    _publish_task_checkpoint(crew_name, i, desc, agent_role, compact_output.raw)
             else:
                 # Fallback to default behavior if tasks aren't accessible
                 final_result = crew.kickoff()

@@ -76,6 +76,16 @@ def _write_tool_artifact(tool_name: str, payload: dict) -> str:
     return str(path)
 
 
+def _call_tool_func(tool_obj, **kwargs) -> str:
+    """Call the underlying Python function for a CrewAI Tool or plain callable."""
+    func = getattr(tool_obj, "func", None)
+    if callable(func):
+        return func(**kwargs)
+    if callable(tool_obj):
+        return tool_obj(**kwargs)
+    raise TypeError(f"Object {tool_obj!r} is not callable and has no callable .func")
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # TOOL 1: Schedule & Session Info
 # ══════════════════════════════════════════════════════════════════════════════
@@ -1010,6 +1020,325 @@ def detect_statistical_patterns(event: str, session_type: str = "R",
         return json.dumps({"error": str(e)})
 
 
+# ══════════════════════════════════════════════════════════════════════════════
+# Evidence Tools: deterministic summaries for small-model synthesis
+# ══════════════════════════════════════════════════════════════════════════════
+@tool("build_race_pace_evidence")
+def build_race_pace_evidence(event: str, year: int = SEASON) -> str:
+    """
+    Build a compact, evidence-first race pace packet for LLM synthesis.
+    Saves full raw telemetry/statistical outputs as an artifact and returns
+    only the highest-value metrics, rankings, and anomalies.
+    """
+    lap_raw = _safe_json_loads(_call_tool_func(analyze_lap_times, event=event, session_type="R", year=year))
+    pattern_raw = _safe_json_loads(_call_tool_func(detect_statistical_patterns, event=event, session_type="R", year=year))
+    if lap_raw.get("error"):
+        return json.dumps(lap_raw, indent=2)
+    if pattern_raw.get("error"):
+        return json.dumps(pattern_raw, indent=2)
+
+    drivers = lap_raw.get("drivers", {})
+    patterns = pattern_raw.get("patterns", {})
+    ranking = lap_raw.get("pace_ranking", [])
+    gaps = lap_raw.get("gaps_to_leader", {})
+
+    top_pace = []
+    for driver in ranking[:5]:
+        info = drivers.get(driver, {})
+        top_pace.append({
+            "driver": driver,
+            "gap_to_leader": gaps.get(driver),
+            "median_lap": info.get("median_lap"),
+            "mean_lap_seconds": info.get("mean_lap_seconds"),
+            "consistency_cv_%": info.get("consistency_cv_%"),
+            "pace_degr_s_per_lap": info.get("pace_degr_s_per_lap"),
+        })
+
+    degradation = sorted(
+        [
+            {
+                "driver": d,
+                "pace_degr_s_per_lap": info.get("pace_degr_s_per_lap"),
+                "compound_count": len(info.get("compounds_used", [])),
+            }
+            for d, info in drivers.items()
+            if isinstance(info.get("pace_degr_s_per_lap"), (int, float))
+        ],
+        key=lambda item: item["pace_degr_s_per_lap"],
+        reverse=True,
+    )
+
+    purple_counts = sorted(
+        [
+            {"driver": d, "purple_lap_count": p.get("purple_lap_count", 0)}
+            for d, p in patterns.items()
+        ],
+        key=lambda item: item["purple_lap_count"],
+        reverse=True,
+    )
+
+    anomalies = sorted(
+        [
+            {
+                "driver": d,
+                "lag1_autocorrelation": p.get("lag1_autocorrelation"),
+                "outlier_count": p.get("outlier_count"),
+                "2nd_half_pace_delta_s": p.get("2nd_half_pace_delta_s"),
+            }
+            for d, p in patterns.items()
+            if abs(float(p.get("lag1_autocorrelation", 0) or 0)) >= 0.45 or int(p.get("outlier_count", 0) or 0) >= 2
+        ],
+        key=lambda item: (abs(item.get("lag1_autocorrelation") or 0), item.get("outlier_count") or 0),
+        reverse=True,
+    )
+
+    findings = []
+    if top_pace:
+        leader = top_pace[0]
+        findings.append(
+            f"{leader['driver']} leads race-trim pace at {leader.get('mean_lap_seconds')}s average with {leader.get('consistency_cv_%')}% CV."
+        )
+    if degradation:
+        findings.append(
+            f"Highest degradation observed: {degradation[0]['driver']} at {degradation[0]['pace_degr_s_per_lap']} s/lap."
+        )
+    if purple_counts:
+        findings.append(
+            f"Most near-fastest laps: {purple_counts[0]['driver']} with {purple_counts[0]['purple_lap_count']} purple laps."
+        )
+    if anomalies:
+        findings.append(
+            f"Strongest anomaly signal: {anomalies[0]['driver']} autocorrelation={anomalies[0]['lag1_autocorrelation']}, outliers={anomalies[0]['outlier_count']}."
+        )
+
+    raw_artifact = {
+        "lap_time_analysis": lap_raw,
+        "statistical_patterns": pattern_raw,
+    }
+    artifact_path = _write_tool_artifact("race_pace_evidence", raw_artifact)
+
+    return json.dumps({
+        "event": str(event),
+        "year": year,
+        "schema": "telemetry_race_pace_evidence",
+        "artifact_path": artifact_path,
+        "top_pace": top_pace,
+        "highest_degradation": degradation[:5],
+        "purple_lap_leaders": purple_counts[:5],
+        "notable_anomalies": anomalies[:5],
+        "findings": findings,
+    }, indent=2)
+
+
+@tool("build_qualifying_evidence")
+def build_qualifying_evidence(event: str, year: int = SEASON) -> str:
+    """
+    Build a compact qualifying evidence packet with deterministic rankings,
+    sector dominance, theoretical-vs-actual gaps, and speed-trap context.
+    """
+    quali_raw = _safe_json_loads(_call_tool_func(analyze_qualifying, event=event, year=year))
+    sector_raw = _safe_json_loads(_call_tool_func(analyze_sectors, event=event, session_type="Q", year=year))
+    car_raw = _safe_json_loads(_call_tool_func(analyze_car_performance, event=event, session_type="Q", year=year))
+    for payload in (quali_raw, sector_raw, car_raw):
+        if payload.get("error"):
+            return json.dumps(payload, indent=2)
+
+    driver_data = quali_raw.get("driver_data", {})
+    sector_data = sector_raw.get("sector_analysis", {})
+    grid_order = quali_raw.get("grid_order", [])
+    top_speed = car_raw.get("top_speed_ranking", [])
+
+    grid_top = []
+    for pos, driver in enumerate(grid_order[:5], 1):
+        info = driver_data.get(driver, {})
+        gap_to_theoretical = sector_data.get(driver, {}).get("gap_to_theoretical_s")
+        improvement = info.get("improvement_s")
+        grid_top.append({
+            "position": pos,
+            "driver": driver,
+            "best_time": info.get("best_time"),
+            "improvement_s": abs(improvement) if isinstance(improvement, (int, float)) else improvement,
+            "gap_to_theoretical_s": gap_to_theoretical,
+            "compound": info.get("compound"),
+        })
+
+    sector_dominance = sector_raw.get("sector_dominance", {})
+    theoretical_left = sorted(
+        [
+            {
+                "driver": driver,
+                "gap_to_theoretical_s": info.get("gap_to_theoretical_s"),
+            }
+            for driver, info in sector_data.items()
+            if isinstance(info.get("gap_to_theoretical_s"), (int, float))
+        ],
+        key=lambda item: item["gap_to_theoretical_s"],
+        reverse=True,
+    )
+
+    findings = []
+    if grid_top:
+        pole = grid_top[0]
+        findings.append(
+            f"{pole['driver']} leads qualifying on {pole['best_time']} with {pole.get('gap_to_theoretical_s')}s left to theoretical best."
+        )
+    for sector_name, winner in sector_dominance.items():
+        if winner.get("driver"):
+            findings.append(f"{sector_name} benchmark: {winner['driver']} ({winner.get('time')}).")
+    if top_speed:
+        findings.append(f"Top straight-line speed: {top_speed[0]['driver']} at {top_speed[0]['speed']} km/h.")
+
+    raw_artifact = {
+        "qualifying_analysis": quali_raw,
+        "sector_analysis": sector_raw,
+        "car_performance": car_raw,
+    }
+    artifact_path = _write_tool_artifact("qualifying_evidence", raw_artifact)
+
+    return json.dumps({
+        "event": str(event),
+        "year": year,
+        "schema": "telemetry_qualifying_evidence",
+        "artifact_path": artifact_path,
+        "grid_top": grid_top,
+        "sector_dominance": sector_dominance,
+        "theoretical_time_left": theoretical_left[:5],
+        "top_speed_ranking": top_speed[:5],
+        "findings": findings[:8],
+    }, indent=2)
+
+
+@tool("build_driver_battle_evidence")
+def build_driver_battle_evidence(event: str, year: int = SEASON) -> str:
+    """
+    Build a compact driver-battle evidence packet focused on the top teams.
+    Computes qualifying and race team-mate gaps, per-sector winners, and a
+    deterministic qualifying-vs-race gap correlation summary.
+    """
+    try:
+        event_key = int(event) if str(event).isdigit() else event
+    except Exception:
+        event_key = event
+
+    sess, err = _load_session(year, event_key, "Q")
+    if err:
+        return json.dumps({"error": err}, indent=2)
+
+    q_tm_raw = _safe_json_loads(_call_tool_func(analyze_teammates, event=event, session_type="Q", year=year))
+    r_tm_raw = _safe_json_loads(_call_tool_func(analyze_teammates, event=event, session_type="R", year=year))
+    if q_tm_raw.get("error"):
+        return json.dumps(q_tm_raw, indent=2)
+    if r_tm_raw.get("error"):
+        return json.dumps(r_tm_raw, indent=2)
+
+    results = sess.results if hasattr(sess, "results") and sess.results is not None else pd.DataFrame()
+    ordered_teams = []
+    if not results.empty and "TeamName" in results.columns:
+        seen = set()
+        for _, row in results.sort_values("Position").iterrows():
+            team = str(row.get("TeamName", ""))
+            if team and team not in seen:
+                ordered_teams.append(team)
+                seen.add(team)
+            if len(ordered_teams) >= 4:
+                break
+
+    q_battles = q_tm_raw.get("team_battles", {})
+    r_battles = r_tm_raw.get("team_battles", {})
+    selected_teams = [team for team in ordered_teams if team in q_battles][:4] or list(q_battles.keys())[:4]
+
+    battle_cards = []
+    qual_gaps = []
+    race_gaps = []
+    detailed_raw = {}
+
+    for team in selected_teams:
+        q_info = q_battles.get(team, {})
+        r_info = r_battles.get(team, {})
+        d1 = q_info.get("driver_1")
+        d2 = q_info.get("driver_2")
+        if not d1 or not d2:
+            continue
+
+        compare_raw = _safe_json_loads(
+            _call_tool_func(compare_driver_telemetry, event=event, driver1=d1, driver2=d2, session_type="Q", year=year)
+        )
+        detailed_raw[team] = compare_raw
+        comparison = compare_raw.get("comparison", {})
+        d1_info = comparison.get(d1, {})
+        d2_info = comparison.get(d2, {})
+
+        sector_wins = {}
+        for key in ("s1", "s2", "s3"):
+            t1 = d1_info.get("sector_times", {}).get(key)
+            t2 = d2_info.get("sector_times", {}).get(key)
+            if t1 and t2 and t1 != "N/A" and t2 != "N/A":
+                sector_wins[key] = d1 if t1 < t2 else d2
+
+        q_gap = q_info.get("pace_gap_s")
+        r_gap = r_info.get("pace_gap_s")
+        if isinstance(q_gap, (int, float)) and isinstance(r_gap, (int, float)):
+            qual_gaps.append(float(q_gap))
+            race_gaps.append(float(r_gap))
+
+        battle_cards.append({
+            "team": team,
+            "driver_1": d1,
+            "driver_2": d2,
+            "qualifying_faster_driver": q_info.get("faster_driver"),
+            "qualifying_gap_s": q_gap,
+            "race_faster_driver": r_info.get("faster_driver"),
+            "race_gap_s": r_gap,
+            "top_speed_delta_kmh": compare_raw.get("deltas", {}).get("top_speed_delta_kmh"),
+            "throttle_delta_pct": compare_raw.get("deltas", {}).get("throttle_delta_pct"),
+            "sector_wins": sector_wins,
+        })
+
+    correlation = None
+    if len(qual_gaps) >= 2 and len(race_gaps) >= 2:
+        correlation = round(float(np.corrcoef(qual_gaps, race_gaps)[0, 1]), 4)
+
+    findings = []
+    if battle_cards:
+        closest = min(
+            [card for card in battle_cards if isinstance(card.get("qualifying_gap_s"), (int, float))],
+            key=lambda item: item["qualifying_gap_s"],
+            default=None,
+        )
+        widest = max(
+            [card for card in battle_cards if isinstance(card.get("qualifying_gap_s"), (int, float))],
+            key=lambda item: item["qualifying_gap_s"],
+            default=None,
+        )
+        if closest:
+            findings.append(
+                f"Closest qualifying battle: {closest['team']} at {closest['qualifying_gap_s']}s."
+            )
+        if widest:
+            findings.append(
+                f"Widest qualifying battle: {widest['team']} at {widest['qualifying_gap_s']}s."
+            )
+    if correlation is not None:
+        findings.append(f"Qualifying-vs-race team-mate gap correlation: {correlation}.")
+
+    raw_artifact = {
+        "qualifying_teammates": q_tm_raw,
+        "race_teammates": r_tm_raw,
+        "detailed_comparisons": detailed_raw,
+    }
+    artifact_path = _write_tool_artifact("driver_battle_evidence", raw_artifact)
+
+    return json.dumps({
+        "event": str(event),
+        "year": year,
+        "schema": "telemetry_driver_battle_evidence",
+        "artifact_path": artifact_path,
+        "battle_cards": battle_cards,
+        "qualifying_race_gap_correlation": correlation,
+        "findings": findings,
+    }, indent=2)
+
+
 # Export all tools for use in agents
 ALL_TELEMETRY_TOOLS = [
     get_season_schedule,
@@ -1024,6 +1353,9 @@ ALL_TELEMETRY_TOOLS = [
     get_championship_standings,
     execute_python_analysis,
     detect_statistical_patterns,
+    build_race_pace_evidence,
+    build_qualifying_evidence,
+    build_driver_battle_evidence,
 ]
 
 

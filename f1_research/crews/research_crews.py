@@ -92,23 +92,19 @@ def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, l
         description=f"""
         Perform a comprehensive race pace analysis for the most recent F1 race 
         (event: '{recent_event}', year: {SEASON}).
-        
-        Analyze using the lap time tool:
-        1. ALL drivers' median pace and consistency (coefficient of variation)
-        2. Pace degradation slope per driver (s/lap) — who degrades fastest?
-        3. Gap hierarchy: who is truly fastest in race trim, ignoring strategy?
-        4. Identify which laps were "purple" (within 0.5s of fastest)
-        5. Spot any anomalous laps (safety car, crashes, traffic) and explain them
-        
-        Then use the statistical patterns tool on the same race to find:
-        - Autocorrelation patterns (do poor laps cluster together per driver?)
-        - Second half vs first half pace comparison per driver
-        - Statistical outlier laps and what likely caused them
-        
-        Write concise findings with specific numbers and percentages.
-        Prioritize the 2 strongest discoveries first. If output budget is tight,
-        stop after the strongest 1-2 findings instead of covering everything.
-        Finally, publish your strongest discovery using the publish insight tool.
+
+        First call `build_race_pace_evidence`. Treat that evidence packet as your
+        primary source. Use raw telemetry/statistics tools only if the evidence packet
+        clearly leaves a gap you must fill.
+
+        From the evidence packet, explain:
+        1. Race-trim pace hierarchy
+        2. Best and worst tyre degradation signals
+        3. Which drivers combined pace with consistency
+        4. The strongest anomaly or outlier pattern
+
+        Keep the writeup evidence-first and compact.
+        Publish your single strongest race-pace finding.
         """,
         expected_output=(
             "Detailed lap time analysis with pace rankings, degradation curves, "
@@ -121,21 +117,18 @@ def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, l
         description=f"""
         Analyze the qualifying session for the most recent race weekend 
         (event: '{recent_event}', year: {SEASON}).
-        
-        Run BOTH the qualifying analysis tool AND the sector analysis tool:
-        1. Lap time evolution per driver — who improved most across runs?
-        2. Theoretical best lap vs actual: who left the most time on the table?
-        3. Sector dominance map: which driver owns which sector?
-        4. Which compound was used and how did it affect peak performance?
-        5. Who peaked at the perfect time vs who peaked too early/late?
-        
-        Then run a car performance analysis on the qualifying session:
-        - Speed trap hierarchy (who has the most powerful PU/lowest drag?)
-        - DRS effectiveness differences between teams
-        - Top gear usage patterns on straights
-        
-        Look for the hidden story: often qualifying data reveals setup choices
-        that explain race pace. Identify only the clearest connections.
+
+        First call `build_qualifying_evidence`. Treat that evidence packet as your
+        main input. Only call raw qualifying/sector/car tools if a specific detail
+        is missing from the packet.
+
+        From the evidence packet, explain:
+        1. Grid hierarchy and the main pace spread
+        2. Who left the most time on the table versus theoretical best
+        3. Sector dominance map
+        4. Straight-line speed context and what it implies about setup
+        5. One clear connection between qualifying shape and likely race behavior
+
         Publish one key qualifying insight.
         """,
         expected_output=(
@@ -149,19 +142,18 @@ def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, l
         description=f"""
         Run head-to-head telemetry comparisons for the top 4 teams' driver pairs
         from the qualifying session (event: '{recent_event}', year: {SEASON}).
-        
-        For each team's drivers, use the teammate analysis tool AND compare_driver_telemetry:
-        1. Exact pace gap in tenths
-        2. Which sectors does each driver win?
-        3. Throttle application differences (who is more aggressive?)
-        4. Top speed differences (setup/PU differences?)
-        5. DRS strategy differences
-        
-        Also run a Python analysis using execute_python_analysis:
-        Calculate the Pearson correlation between team mate gaps in qualifying
-        vs team mate gaps in the race to see if qualifying form predicts race form.
-        
-        Synthesize: which driver battles are closest? Who has the biggest edge?
+
+        First call `build_driver_battle_evidence`. Use that evidence packet as the
+        primary source. Only drill into raw comparison tools if one battle needs
+        deeper explanation.
+
+        From the evidence packet, explain:
+        1. Exact qualifying gap per top team
+        2. Which sectors each driver tends to win
+        3. Whether the same driver advantage persists into the race
+        4. The qualifying-vs-race gap correlation
+        5. Which battle is closest and which is most one-sided
+
         Keep the answer compact and evidence-first.
         Publish a "Driver Battle Scorecard" insight.
         """,

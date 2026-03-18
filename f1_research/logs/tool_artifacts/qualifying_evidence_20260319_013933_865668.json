@@ -1,0 +1,1098 @@
+{
+  "qualifying_analysis": {
+    "event": "2",
+    "year": 2026,
+    "driver_data": {
+      "ANT": {
+        "best_time": "1:32.064",
+        "num_laps": 10,
+        "session_bests": {
+          "Q1": "1:32.064",
+          "Q2": "1:32.064",
+          "Q3": "1:32.064"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.003",
+            "mean": "0:27.300"
+          },
+          "S2": {
+            "best": "0:27.664",
+            "mean": "0:32.882"
+          },
+          "S3": {
+            "best": "0:40.387",
+            "mean": "0:47.661"
+          }
+        },
+        "improvement_s": -53.22,
+        "compound": "SOFT"
+      },
+      "RUS": {
+        "best_time": "1:32.286",
+        "num_laps": 8,
+        "session_bests": {
+          "Q1": "1:32.286",
+          "Q2": "1:32.286",
+          "Q3": "1:32.286"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.012",
+            "mean": "0:28.370"
+          },
+          "S2": {
+            "best": "0:27.783",
+            "mean": "0:32.782"
+          },
+          "S3": {
+            "best": "0:40.491",
+            "mean": "0:49.111"
+          }
+        },
+        "improvement_s": -40.47,
+        "compound": "SOFT"
+      },
+      "HAM": {
+        "best_time": "1:32.415",
+        "num_laps": 13,
+        "session_bests": {
+          "Q1": "1:32.415",
+          "Q2": "1:32.415",
+          "Q3": "1:32.415"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.080",
+            "mean": "0:27.563"
+          },
+          "S2": {
+            "best": "0:27.696",
+            "mean": "0:30.838"
+          },
+          "S3": {
+            "best": "0:40.535",
+            "mean": "0:49.876"
+          }
+        },
+        "improvement_s": -39.551,
+        "compound": "SOFT"
+      },
+      "LEC": {
+        "best_time": "1:32.428",
+        "num_laps": 14,
+        "session_bests": {
+          "Q1": "1:32.428",
+          "Q2": "1:32.428",
+          "Q3": "1:32.428"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.022",
+            "mean": "0:26.361"
+          },
+          "S2": {
+            "best": "0:27.660",
+            "mean": "0:30.852"
+          },
+          "S3": {
+            "best": "0:40.650",
+            "mean": "0:48.652"
+          }
+        },
+        "improvement_s": -35.357,
+        "compound": "SOFT"
+      },
+      "PIA": {
+        "best_time": "1:32.550",
+        "num_laps": 14,
+        "session_bests": {
+          "Q1": "1:32.550",
+          "Q2": "1:32.550",
+          "Q3": "1:32.550"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.120",
+            "mean": "0:27.516"
+          },
+          "S2": {
+            "best": "0:27.729",
+            "mean": "0:31.178"
+          },
+          "S3": {
+            "best": "0:40.493",
+            "mean": "0:49.492"
+          }
+        },
+        "improvement_s": -40.081,
+        "compound": "SOFT"
+      },
+      "NOR": {
+        "best_time": "1:32.608",
+        "num_laps": 14,
+        "session_bests": {
+          "Q1": "1:32.608",
+          "Q2": "1:32.608",
+          "Q3": "1:32.608"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:23.995",
+            "mean": "0:27.158"
+          },
+          "S2": {
+            "best": "0:27.747",
+            "mean": "0:30.713"
+          },
+          "S3": {
+            "best": "0:40.748",
+            "mean": "0:47.535"
+          }
+        },
+        "improvement_s": -32.191,
+        "compound": "SOFT"
+      },
+      "GAS": {
+        "best_time": "1:32.873",
+        "num_laps": 15,
+        "session_bests": {
+          "Q1": "1:32.873",
+          "Q2": "1:32.873",
+          "Q3": "1:32.873"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.099",
+            "mean": "0:27.642"
+          },
+          "S2": {
+            "best": "0:27.788",
+            "mean": "0:31.975"
+          },
+          "S3": {
+            "best": "0:40.900",
+            "mean": "0:49.024"
+          }
+        },
+        "improvement_s": -39.211,
+        "compound": "SOFT"
+      },
+      "VER": {
+        "best_time": "1:33.002",
+        "num_laps": 14,
+        "session_bests": {
+          "Q1": "1:33.002",
+          "Q2": "1:33.002",
+          "Q3": "1:33.002"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.280",
+            "mean": "0:27.540"
+          },
+          "S2": {
+            "best": "0:27.975",
+            "mean": "0:31.181"
+          },
+          "S3": {
+            "best": "0:40.613",
+            "mean": "0:47.962"
+          }
+        },
+        "improvement_s": -41.21,
+        "compound": "SOFT"
+      },
+      "HAD": {
+        "best_time": "1:33.121",
+        "num_laps": 14,
+        "session_bests": {
+          "Q1": "1:33.121",
+          "Q2": "1:33.121",
+          "Q3": "1:33.121"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.465",
+            "mean": "0:27.310"
+          },
+          "S2": {
+            "best": "0:27.933",
+            "mean": "0:31.362"
+          },
+          "S3": {
+            "best": "0:40.659",
+            "mean": "0:48.567"
+          }
+        },
+        "improvement_s": -35.912,
+        "compound": "SOFT"
+      },
+      "BEA": {
+        "best_time": "1:33.197",
+        "num_laps": 13,
+        "session_bests": {
+          "Q1": "1:33.197",
+          "Q2": "1:33.197",
+          "Q3": "1:33.197"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.234",
+            "mean": "0:27.481"
+          },
+          "S2": {
+            "best": "0:27.843",
+            "mean": "0:31.007"
+          },
+          "S3": {
+            "best": "0:40.931",
+            "mean": "0:50.246"
+          }
+        },
+        "improvement_s": -43.995,
+        "compound": "SOFT"
+      },
+      "HUL": {
+        "best_time": "1:33.354",
+        "num_laps": 9,
+        "session_bests": {
+          "Q1": "1:33.354",
+          "Q2": "1:33.354",
+          "Q3": "1:33.354"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.558",
+            "mean": "0:30.446"
+          },
+          "S2": {
+            "best": "0:27.937",
+            "mean": "0:31.817"
+          },
+          "S3": {
+            "best": "0:40.743",
+            "mean": "0:47.787"
+          }
+        },
+        "improvement_s": -39.918,
+        "compound": "SOFT"
+      },
+      "COL": {
+        "best_time": "1:33.357",
+        "num_laps": 11,
+        "session_bests": {
+          "Q1": "1:33.357",
+          "Q2": "1:33.357",
+          "Q3": "1:33.357"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.254",
+            "mean": "0:29.429"
+          },
+          "S2": {
+            "best": "0:28.078",
+            "mean": "0:30.893"
+          },
+          "S3": {
+            "best": "0:40.947",
+            "mean": "0:47.051"
+          }
+        },
+        "improvement_s": -46.027,
+        "compound": "SOFT"
+      },
+      "OCO": {
+        "best_time": "1:33.538",
+        "num_laps": 10,
+        "session_bests": {
+          "Q1": "1:33.538",
+          "Q2": "1:33.538",
+          "Q3": "1:33.538"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.335",
+            "mean": "0:27.407"
+          },
+          "S2": {
+            "best": "0:28.041",
+            "mean": "0:31.685"
+          },
+          "S3": {
+            "best": "0:41.028",
+            "mean": "0:50.195"
+          }
+        },
+        "improvement_s": -37.012,
+        "compound": "SOFT"
+      },
+      "LAW": {
+        "best_time": "1:33.765",
+        "num_laps": 11,
+        "session_bests": {
+          "Q1": "1:33.765",
+          "Q2": "1:33.765",
+          "Q3": "1:33.765"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.339",
+            "mean": "0:26.999"
+          },
+          "S2": {
+            "best": "0:28.117",
+            "mean": "0:31.012"
+          },
+          "S3": {
+            "best": "0:40.911",
+            "mean": "0:48.880"
+          }
+        },
+        "improvement_s": -35.792,
+        "compound": "SOFT"
+      },
+      "LIN": {
+        "best_time": "1:33.784",
+        "num_laps": 11,
+        "session_bests": {
+          "Q1": "1:33.784",
+          "Q2": "1:33.784",
+          "Q3": "1:33.784"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.319",
+            "mean": "0:28.210"
+          },
+          "S2": {
+            "best": "0:28.181",
+            "mean": "0:32.111"
+          },
+          "S3": {
+            "best": "0:40.903",
+            "mean": "0:48.235"
+          }
+        },
+        "improvement_s": -32.509,
+        "compound": "SOFT"
+      },
+      "BOR": {
+        "best_time": "1:33.549",
+        "num_laps": 10,
+        "session_bests": {
+          "Q1": "1:33.549",
+          "Q2": "1:33.549",
+          "Q3": "1:33.549"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.539",
+            "mean": "0:30.767"
+          },
+          "S2": {
+            "best": "0:28.145",
+            "mean": "0:31.509"
+          },
+          "S3": {
+            "best": "0:40.796",
+            "mean": "0:51.551"
+          }
+        },
+        "improvement_s": -43.877,
+        "compound": "SOFT"
+      },
+      "SAI": {
+        "best_time": "1:34.317",
+        "num_laps": 8,
+        "session_bests": {
+          "Q1": "1:34.317",
+          "Q2": "1:34.317",
+          "Q3": "1:34.317"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.465",
+            "mean": "0:31.966"
+          },
+          "S2": {
+            "best": "0:28.669",
+            "mean": "0:31.941"
+          },
+          "S3": {
+            "best": "0:41.183",
+            "mean": "0:49.467"
+          }
+        },
+        "improvement_s": -53.5,
+        "compound": "SOFT"
+      },
+      "ALB": {
+        "best_time": "1:34.772",
+        "num_laps": 9,
+        "session_bests": {
+          "Q1": "1:34.772",
+          "Q2": "1:34.772",
+          "Q3": "1:34.772"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.526",
+            "mean": "0:34.864"
+          },
+          "S2": {
+            "best": "0:28.694",
+            "mean": "0:30.603"
+          },
+          "S3": {
+            "best": "0:41.370",
+            "mean": "0:48.407"
+          }
+        },
+        "improvement_s": -49.167,
+        "compound": "SOFT"
+      },
+      "ALO": {
+        "best_time": "1:35.203",
+        "num_laps": 7,
+        "session_bests": {
+          "Q1": "1:35.203",
+          "Q2": "1:35.203",
+          "Q3": "1:35.203"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.782",
+            "mean": "0:31.738"
+          },
+          "S2": {
+            "best": "0:28.723",
+            "mean": "0:31.523"
+          },
+          "S3": {
+            "best": "0:41.698",
+            "mean": "0:48.697"
+          }
+        },
+        "improvement_s": -46.703,
+        "compound": "SOFT"
+      },
+      "BOT": {
+        "best_time": "1:35.436",
+        "num_laps": 6,
+        "session_bests": {
+          "Q1": "1:35.436",
+          "Q2": "1:35.436",
+          "Q3": "1:35.436"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.949",
+            "mean": "0:27.027"
+          },
+          "S2": {
+            "best": "0:28.972",
+            "mean": "0:31.709"
+          },
+          "S3": {
+            "best": "0:41.515",
+            "mean": "0:49.217"
+          }
+        },
+        "improvement_s": -30.047,
+        "compound": "SOFT"
+      },
+      "STR": {
+        "best_time": "1:35.995",
+        "num_laps": 7,
+        "session_bests": {
+          "Q1": "1:35.995",
+          "Q2": "1:35.995",
+          "Q3": "1:35.995"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:24.953",
+            "mean": "0:31.239"
+          },
+          "S2": {
+            "best": "0:29.144",
+            "mean": "0:32.578"
+          },
+          "S3": {
+            "best": "0:41.838",
+            "mean": "0:51.003"
+          }
+        },
+        "improvement_s": -44.369,
+        "compound": "SOFT"
+      },
+      "PER": {
+        "best_time": "1:36.906",
+        "num_laps": 4,
+        "session_bests": {
+          "Q1": "1:36.906",
+          "Q2": "1:36.906",
+          "Q3": "1:36.906"
+        },
+        "sectors": {
+          "S1": {
+            "best": "0:25.703",
+            "mean": "0:27.534"
+          },
+          "S2": {
+            "best": "0:29.246",
+            "mean": "0:32.516"
+          },
+          "S3": {
+            "best": "0:41.611",
+            "mean": "0:48.212"
+          }
+        },
+        "improvement_s": -27.456,
+        "compound": "SOFT"
+      }
+    },
+    "grid_order": [
+      "ANT",
+      "RUS",
+      "HAM",
+      "LEC",
+      "PIA",
+      "NOR",
+      "GAS",
+      "VER",
+      "HAD",
+      "BEA",
+      "HUL",
+      "COL",
+      "OCO",
+      "BOR",
+      "LAW",
+      "LIN",
+      "SAI",
+      "ALB",
+      "ALO",
+      "BOT",
+      "STR",
+      "PER"
+    ]
+  },
+  "sector_analysis": {
+    "event": "2",
+    "session": "Q",
+    "year": 2026,
+    "sector_analysis": {
+      "ANT": {
+        "S1_best": "0:24.003",
+        "S2_best": "0:27.664",
+        "S3_best": "0:40.387",
+        "theoretical_best": "1:32.054",
+        "actual_best": "1:32.064",
+        "gap_to_theoretical_s": 0.01
+      },
+      "RUS": {
+        "S1_best": "0:24.012",
+        "S2_best": "0:27.783",
+        "S3_best": "0:40.491",
+        "theoretical_best": "1:32.286",
+        "actual_best": "1:32.286",
+        "gap_to_theoretical_s": null
+      },
+      "HAM": {
+        "S1_best": "0:24.080",
+        "S2_best": "0:27.696",
+        "S3_best": "0:40.535",
+        "theoretical_best": "1:32.311",
+        "actual_best": "1:32.415",
+        "gap_to_theoretical_s": 0.104
+      },
+      "LEC": {
+        "S1_best": "0:24.022",
+        "S2_best": "0:27.660",
+        "S3_best": "0:40.650",
+        "theoretical_best": "1:32.332",
+        "actual_best": "1:32.428",
+        "gap_to_theoretical_s": 0.096
+      },
+      "PIA": {
+        "S1_best": "0:24.120",
+        "S2_best": "0:27.729",
+        "S3_best": "0:40.493",
+        "theoretical_best": "1:32.342",
+        "actual_best": "1:32.550",
+        "gap_to_theoretical_s": 0.208
+      },
+      "NOR": {
+        "S1_best": "0:23.995",
+        "S2_best": "0:27.747",
+        "S3_best": "0:40.748",
+        "theoretical_best": "1:32.490",
+        "actual_best": "1:32.608",
+        "gap_to_theoretical_s": 0.118
+      },
+      "GAS": {
+        "S1_best": "0:24.099",
+        "S2_best": "0:27.788",
+        "S3_best": "0:40.900",
+        "theoretical_best": "1:32.787",
+        "actual_best": "1:32.873",
+        "gap_to_theoretical_s": 0.086
+      },
+      "VER": {
+        "S1_best": "0:24.280",
+        "S2_best": "0:27.975",
+        "S3_best": "0:40.613",
+        "theoretical_best": "1:32.868",
+        "actual_best": "1:33.002",
+        "gap_to_theoretical_s": 0.134
+      },
+      "HAD": {
+        "S1_best": "0:24.465",
+        "S2_best": "0:27.933",
+        "S3_best": "0:40.659",
+        "theoretical_best": "1:33.057",
+        "actual_best": "1:33.121",
+        "gap_to_theoretical_s": 0.064
+      },
+      "BEA": {
+        "S1_best": "0:24.234",
+        "S2_best": "0:27.843",
+        "S3_best": "0:40.931",
+        "theoretical_best": "1:33.008",
+        "actual_best": "1:33.197",
+        "gap_to_theoretical_s": 0.189
+      },
+      "HUL": {
+        "S1_best": "0:24.558",
+        "S2_best": "0:27.937",
+        "S3_best": "0:40.743",
+        "theoretical_best": "1:33.238",
+        "actual_best": "1:33.354",
+        "gap_to_theoretical_s": 0.116
+      },
+      "COL": {
+        "S1_best": "0:24.254",
+        "S2_best": "0:28.078",
+        "S3_best": "0:40.947",
+        "theoretical_best": "1:33.279",
+        "actual_best": "1:33.357",
+        "gap_to_theoretical_s": 0.078
+      },
+      "OCO": {
+        "S1_best": "0:24.335",
+        "S2_best": "0:28.041",
+        "S3_best": "0:41.028",
+        "theoretical_best": "1:33.404",
+        "actual_best": "1:33.538",
+        "gap_to_theoretical_s": 0.134
+      },
+      "LAW": {
+        "S1_best": "0:24.339",
+        "S2_best": "0:28.117",
+        "S3_best": "0:40.911",
+        "theoretical_best": "1:33.367",
+        "actual_best": "1:33.765",
+        "gap_to_theoretical_s": 0.398
+      },
+      "LIN": {
+        "S1_best": "0:24.319",
+        "S2_best": "0:28.181",
+        "S3_best": "0:40.903",
+        "theoretical_best": "1:33.403",
+        "actual_best": "1:33.784",
+        "gap_to_theoretical_s": 0.381
+      },
+      "BOR": {
+        "S1_best": "0:24.539",
+        "S2_best": "0:28.145",
+        "S3_best": "0:40.796",
+        "theoretical_best": "1:33.480",
+        "actual_best": "1:33.549",
+        "gap_to_theoretical_s": 0.069
+      },
+      "SAI": {
+        "S1_best": "0:24.465",
+        "S2_best": "0:28.669",
+        "S3_best": "0:41.183",
+        "theoretical_best": "1:34.317",
+        "actual_best": "1:34.317",
+        "gap_to_theoretical_s": null
+      },
+      "ALB": {
+        "S1_best": "0:24.526",
+        "S2_best": "0:28.694",
+        "S3_best": "0:41.370",
+        "theoretical_best": "1:34.590",
+        "actual_best": "1:34.772",
+        "gap_to_theoretical_s": 0.182
+      },
+      "ALO": {
+        "S1_best": "0:24.782",
+        "S2_best": "0:28.723",
+        "S3_best": "0:41.698",
+        "theoretical_best": "1:35.203",
+        "actual_best": "1:35.203",
+        "gap_to_theoretical_s": null
+      },
+      "BOT": {
+        "S1_best": "0:24.949",
+        "S2_best": "0:28.972",
+        "S3_best": "0:41.515",
+        "theoretical_best": "1:35.436",
+        "actual_best": "1:35.436",
+        "gap_to_theoretical_s": null
+      },
+      "STR": {
+        "S1_best": "0:24.953",
+        "S2_best": "0:29.144",
+        "S3_best": "0:41.838",
+        "theoretical_best": "1:35.935",
+        "actual_best": "1:35.995",
+        "gap_to_theoretical_s": 0.06
+      },
+      "PER": {
+        "S1_best": "0:25.703",
+        "S2_best": "0:29.246",
+        "S3_best": "0:41.611",
+        "theoretical_best": "1:36.560",
+        "actual_best": "1:36.906",
+        "gap_to_theoretical_s": 0.346
+      }
+    },
+    "sector_dominance": {
+      "Sector 1": {
+        "driver": "NOR",
+        "time": "0:23.995"
+      },
+      "Sector 2": {
+        "driver": "LEC",
+        "time": "0:27.660"
+      },
+      "Sector 3": {
+        "driver": "ANT",
+        "time": "0:40.387"
+      }
+    },
+    "theoretical_ranking": [
+      "ANT",
+      "RUS",
+      "HAM",
+      "LEC",
+      "PIA",
+      "NOR",
+      "GAS",
+      "VER",
+      "BEA",
+      "HAD",
+      "HUL",
+      "COL",
+      "LAW",
+      "LIN",
+      "OCO",
+      "BOR",
+      "SAI",
+      "ALB",
+      "ALO",
+      "BOT",
+      "STR",
+      "PER"
+    ]
+  },
+  "car_performance": {
+    "event": "2",
+    "session": "Q",
+    "year": 2026,
+    "car_performance": {
+      "ANT": {
+        "top_speed_kmh": 332.0,
+        "avg_high_speed_zone_kmh": 310.9,
+        "avg_corner_speed_kmh": 110.4,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 44.0,
+        "top_gear_speed_kmh": 316.9
+      },
+      "RUS": {
+        "top_speed_kmh": 333.0,
+        "avg_high_speed_zone_kmh": 313.1,
+        "avg_corner_speed_kmh": 111.9,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 38.0,
+        "top_gear_speed_kmh": 307.2
+      },
+      "HAM": {
+        "top_speed_kmh": 329.0,
+        "avg_high_speed_zone_kmh": 312.2,
+        "avg_corner_speed_kmh": 113.4,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 35.0,
+        "top_gear_speed_kmh": 303.3
+      },
+      "LEC": {
+        "top_speed_kmh": 330.0,
+        "avg_high_speed_zone_kmh": 312.7,
+        "avg_corner_speed_kmh": 113.0,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 22.0,
+        "top_gear_speed_kmh": 312.7
+      },
+      "PIA": {
+        "top_speed_kmh": 330.0,
+        "avg_high_speed_zone_kmh": 311.1,
+        "avg_corner_speed_kmh": 110.5,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 21.0,
+        "top_gear_speed_kmh": 297.8
+      },
+      "NOR": {
+        "top_speed_kmh": 331.0,
+        "avg_high_speed_zone_kmh": 311.9,
+        "avg_corner_speed_kmh": 110.7,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 33.0,
+        "top_gear_speed_kmh": 307.9
+      },
+      "GAS": {
+        "top_speed_kmh": 340.0,
+        "avg_high_speed_zone_kmh": 313.5,
+        "avg_corner_speed_kmh": 109.2,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 48.0,
+        "top_gear_speed_kmh": 317.6
+      },
+      "VER": {
+        "top_speed_kmh": 334.0,
+        "avg_high_speed_zone_kmh": 310.7,
+        "avg_corner_speed_kmh": 111.5,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 153.0,
+        "top_gear_speed_kmh": 308.3
+      },
+      "HAD": {
+        "top_speed_kmh": 334.0,
+        "avg_high_speed_zone_kmh": 311.4,
+        "avg_corner_speed_kmh": 109.0,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 47.0,
+        "top_gear_speed_kmh": 316.2
+      },
+      "BEA": {
+        "top_speed_kmh": 331.0,
+        "avg_high_speed_zone_kmh": 309.3,
+        "avg_corner_speed_kmh": 112.1,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 164.0,
+        "top_gear_speed_kmh": 309.3
+      },
+      "HUL": {
+        "top_speed_kmh": 333.0,
+        "avg_high_speed_zone_kmh": 306.9,
+        "avg_corner_speed_kmh": 111.0,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 158.0,
+        "top_gear_speed_kmh": 320.6
+      },
+      "COL": {
+        "top_speed_kmh": 343.0,
+        "avg_high_speed_zone_kmh": 318.9,
+        "avg_corner_speed_kmh": 107.8,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 28.0,
+        "top_gear_speed_kmh": 324.7
+      },
+      "OCO": {
+        "top_speed_kmh": 333.0,
+        "avg_high_speed_zone_kmh": 311.2,
+        "avg_corner_speed_kmh": 110.2,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 35.0,
+        "top_gear_speed_kmh": 313.9
+      },
+      "LAW": {
+        "top_speed_kmh": 320.0,
+        "avg_high_speed_zone_kmh": 303.9,
+        "avg_corner_speed_kmh": 111.0,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 54.0,
+        "top_gear_speed_kmh": 302.0
+      },
+      "LIN": {
+        "top_speed_kmh": 335.0,
+        "avg_high_speed_zone_kmh": 311.7,
+        "avg_corner_speed_kmh": 108.7,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 46.0,
+        "top_gear_speed_kmh": 315.4
+      },
+      "BOR": {
+        "top_speed_kmh": 335.0,
+        "avg_high_speed_zone_kmh": 312.0,
+        "avg_corner_speed_kmh": 114.7,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 125.0,
+        "top_gear_speed_kmh": 303.9
+      },
+      "SAI": {
+        "top_speed_kmh": 338.0,
+        "avg_high_speed_zone_kmh": 320.4,
+        "avg_corner_speed_kmh": 110.7,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 20.0,
+        "top_gear_speed_kmh": 325.4
+      },
+      "ALB": {
+        "top_speed_kmh": 335.0,
+        "avg_high_speed_zone_kmh": 316.5,
+        "avg_corner_speed_kmh": 111.9,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 32.0,
+        "top_gear_speed_kmh": 313.5
+      },
+      "ALO": {
+        "top_speed_kmh": 320.0,
+        "avg_high_speed_zone_kmh": 304.7,
+        "avg_corner_speed_kmh": 110.1,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 31.0,
+        "top_gear_speed_kmh": 306.4
+      },
+      "BOT": {
+        "top_speed_kmh": 335.0,
+        "avg_high_speed_zone_kmh": 317.4,
+        "avg_corner_speed_kmh": 111.4,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 111.0,
+        "top_gear_speed_kmh": 306.0
+      },
+      "STR": {
+        "top_speed_kmh": 324.0,
+        "avg_high_speed_zone_kmh": 307.3,
+        "avg_corner_speed_kmh": 110.7,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 30.0,
+        "top_gear_speed_kmh": 306.9
+      },
+      "PER": {
+        "top_speed_kmh": 334.0,
+        "avg_high_speed_zone_kmh": 315.8,
+        "avg_corner_speed_kmh": 109.1,
+        "drs_speed_boost_kmh": null,
+        "drs_usage_pct": 0.0,
+        "max_acceleration_delta": 110.0,
+        "top_gear_speed_kmh": 308.5
+      }
+    },
+    "top_speed_ranking": [
+      {
+        "driver": "COL",
+        "speed": 343.0
+      },
+      {
+        "driver": "GAS",
+        "speed": 340.0
+      },
+      {
+        "driver": "SAI",
+        "speed": 338.0
+      },
+      {
+        "driver": "LIN",
+        "speed": 335.0
+      },
+      {
+        "driver": "BOR",
+        "speed": 335.0
+      },
+      {
+        "driver": "ALB",
+        "speed": 335.0
+      },
+      {
+        "driver": "BOT",
+        "speed": 335.0
+      },
+      {
+        "driver": "VER",
+        "speed": 334.0
+      },
+      {
+        "driver": "HAD",
+        "speed": 334.0
+      },
+      {
+        "driver": "PER",
+        "speed": 334.0
+      },
+      {
+        "driver": "RUS",
+        "speed": 333.0
+      },
+      {
+        "driver": "HUL",
+        "speed": 333.0
+      },
+      {
+        "driver": "OCO",
+        "speed": 333.0
+      },
+      {
+        "driver": "ANT",
+        "speed": 332.0
+      },
+      {
+        "driver": "NOR",
+        "speed": 331.0
+      },
+      {
+        "driver": "BEA",
+        "speed": 331.0
+      },
+      {
+        "driver": "LEC",
+        "speed": 330.0
+      },
+      {
+        "driver": "PIA",
+        "speed": 330.0
+      },
+      {
+        "driver": "HAM",
+        "speed": 329.0
+      },
+      {
+        "driver": "STR",
+        "speed": 324.0
+      },
+      {
+        "driver": "LAW",
+        "speed": 320.0
+      },
+      {
+        "driver": "ALO",
+        "speed": 320.0
+      }
+    ]
+  }
+}

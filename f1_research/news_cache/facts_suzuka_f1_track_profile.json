@@ -1,0 +1,26 @@
+{
+  "query": "Suzuka F1 track profile",
+  "count": 4,
+  "results": [
+    {
+      "title": "F1 - The Official Home of Formula 1\u00ae Racing",
+      "url": "https://www.formula1.com/",
+      "content": "Enter the world of Formula 1. Your go-to source for the latest F1 news, video highlights, GP results, live timing, in-depth analysis and expert commentary"
+    },
+    {
+      "title": "F1 News, Drivers, Results - Formula 1 Live Online | Sky Sports",
+      "url": "https://www.skysports.com/f1",
+      "content": "Formula 1 on Sky Sports - get the latest F1 news, results, standings, videos and photos, plus watch live races in HD and read about top drivers."
+    },
+    {
+      "title": "F1 - Latest News, Results & Schedule - BBC Sport",
+      "url": "https://www.bbc.co.uk/sport/formula1",
+      "content": "Fallout from first race since biggest rule changes - F1 Q&A BBC Sport F1 correspondent Andrew Benson answers your questions following the season-opening Australian Grand Prix."
+    },
+    {
+      "title": "F1 News, Live Race Coverage, Results & Standings | PlanetF1.com",
+      "url": "https://www.planetf1.com/",
+      "content": "The latest F1 News, results, schedules, standings, stats and analysis from PlanetF1.com. Coverage of every session in winter testing, practice, qualifying and on race day."
+    }
+  ]
+}

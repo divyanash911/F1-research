@@ -1,0 +1,30 @@
+# F1 Autonomous Research Program - Dependencies
+
+# Core AI Framework
+crewai>=0.80.0
+crewai-tools>=0.14.0
+
+# LLM Backends (installs litellm which supports ollama/openrouter/groq)
+litellm>=1.50.0
+groq>=0.11.0
+openai>=1.50.0
+
+# F1 Data
+fastf1>=3.4.0
+
+# Data Science
+numpy>=1.26.0
+pandas>=2.1.0
+scipy>=1.12.0
+matplotlib>=3.8.0
+
+# Web & News
+duckduckgo-search>=6.2.0
+requests>=2.31.0
+newspaper3k>=0.2.8
+lxml[html_clean]>=5.0.0
+
+# Utilities
+python-dotenv>=1.0.0
+rich>=13.7.0
+colorlog>=6.8.0

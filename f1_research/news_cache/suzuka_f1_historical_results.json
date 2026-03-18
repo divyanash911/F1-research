@@ -1,0 +1,42 @@
+{
+  "query": "Suzuka F1 historical results",
+  "count": 5,
+  "results": [
+    {
+      "title": "F1 standings 2026: Driver and constructor points, results for new Formula One season",
+      "url": "https://sports.yahoo.com/articles/f1-standings-2025-updated-driver-115000700.html",
+      "source": "Yahoo Sports",
+      "date": "2026-03-18T12:07:00+00:00",
+      "summary": "A raft of new regulations promise to make the 2026 Formula One one of the most open and competitive for many years."
+    },
+    {
+      "title": "Key moments of the 2025 Formula One season",
+      "url": "https://www.reuters.com/sports/formula1/key-moments-2025-formula-one-season-2025-12-07/",
+      "source": "Reuters",
+      "date": "2025-12-07T15:49:00+00:00",
+      "summary": "ABU DHABI, Dec 7 (Reuters) - Lando Norris won his first Formula One championship at Abu Dhabi's Yas Marina circuit on Sunday. The following charts the key moments of the title battle between the Briton, McLaren teammate Oscar Piastri and Red Bull's Max ..."
+    },
+    {
+      "title": "2026 Formula 1 Japanese Grand Prix - Full Schedule & How to Watch",
+      "url": "https://heavy.com/sports/formula-one/f1-japanese-grand-prix-gp-news-suzuka/",
+      "source": "Heavy",
+      "date": "2026-03-15T18:42:00+00:00",
+      "summary": "Here's everything you need to know to watch the 2026 Formula 1 Japanese Grand Prix at the iconic Suzuka Circuit."
+    },
+    {
+      "title": "F1: The Class of 2025 End-of-Season Rankings (21-15)",
+      "url": "https://www.autoevolution.com/news/f1-the-class-of-2025-end-of-season-rankings-2115-262694.html",
+      "source": "autoevolution",
+      "date": "2025-12-16T01:04:00+00:00",
+      "summary": "After a gruelling 24-race campaign, the 2025 season is finally in the books, and with it, a new world champion: Lando Norris downed Max Verstappen to claim his first world championship. But away from the fight at the front, there were plenty of good ..."
+    },
+    {
+      "title": "Final F1 grades for all 10 teams: One A+, one F and everyone in between",
+      "url": "https://www.nytimes.com/athletic/6894253/2025/12/18/formula-1-team-grades-2025/",
+      "source": "The New York Times",
+      "date": "2025-12-18T00:00:00+00:00",
+      "summary": "Carlos Sainz, Lando Norris and Lewis Hamilton during the 2025 Formula One season Illustration: Kelsea Petersen / The Athletic; Peter Fox / Getty, Jayce Illman / Getty, Nur Photo / Getty After 24 grands prix, six sprint races and a tight drivers ..."
+    }
+  ],
+  "fetched": "2026-03-18T21:06:57.318875"
+}

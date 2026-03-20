@@ -217,3 +217,231 @@ t lap time, highlights a near-perfect setup and execution in qualifying conditio
    - Most One-Sided Battle: Mercedes (ANT vs RUS) with a qualifying gap of 10.151s.
 
 **Insight:** The telemetry data reveals that while some teams maintain the same driver advantage from qualifying to race, others see a reversal or no clear pattern. Ferrari's battle is the closest in both sessions, whereas McLaren lacks race comparison data but shows a significant sector dominance split between PIA and NOR.
+
+---
+## Telemetry Analysis Task 1 Checkpoint
+**Type:** telemetry_finding | **Confidence:** 45% | **Time:** 2026-03-20T15:08:45.167781
+**Tags:** checkpoint, telemetry_analysis, task_1
+
+**Crew:** Telemetry Analysis
+**Task:** 1
+**Agent:** F1 Telemetry Deep Analyst
+
+**Task Description Preview:** Preloaded memory for this task (telemetry memory: race pace): Use this as already-retrieved historical context. Do not repeat the same retrieval unless you need a narrower follow-up query. {   "query": "event 2 recent race pace tyre degradation consistency anomaly",   "department": "telemetry",   "d
+
+## Checkpoint Summary
+
+**Race Pace Analysis - Event 2 (Year 2026)**
+
+1. **Race-Trim Pace Hierarchy**
+   - ANT leads with a median lap time of 1:36.513 and an average lap time of 97.738 seconds, showing the highest consistency with a CV of 7.526%.
+   - Following closely is HAM at +0.568s from the leader with a median lap time of 1:36.923 and an average lap time of 98.306 seconds, also demonstrating high consistency (CV = 7.274%).
+   - LEC trails slightly behind HAM at +0.643s from the leader with a median lap time of 1:36.850 and an average lap time of 98.381 seconds, showing the highest consistency among the top three (CV = 7.099%).
+
+2. **Best and Worst Tyre Degradation Signals**
+   - The best tyre degradation signal is observed with LEC at -0.1175 s/lap.
+   - ANT shows a slightly higher degradation rate at -0.121 s/lap, followed by HAM at -0.1189 s/lap.
+
+3. **Drivers Combining Pace with Consistency**
+   - ANT and LEC stand out for combining high pace with consistency. Both drivers have low CV values (7.526% and 7.099%, respectively) indicating stable performance throughout the race.
+   
+4. **Strongest Anomaly or Outlier Pattern**
+   - The strongest anomaly signal is observed in PER, who has an autocorrelation of 0.7411 with three outliers and a significant second-half pace delta of -5.852 seconds.
+
+**Published Insight:**
+ANT leads the race-trim pace
+...
+dicates potential issues or significant fluctuations in his race pace, which could be an area for further investigation.
+
+This comprehensive analysis provides insights into the key performance indicators and anomalies that shaped the recent F1 race (Event 2, Year 2026).
+
+---
+## Telemetry Analysis Task 2 Checkpoint
+**Type:** telemetry_finding | **Confidence:** 45% | **Time:** 2026-03-20T15:09:12.327063
+**Tags:** checkpoint, telemetry_analysis, task_2
+
+**Crew:** Telemetry Analysis
+**Task:** 2
+**Agent:** F1 Telemetry Deep Analyst
+
+**Task Description Preview:** Preloaded memory for this task (telemetry memory: qualifying): Use this as already-retrieved historical context. Do not repeat the same retrieval unless you need a narrower follow-up query. {   "query": "event 2 qualifying sector dominance theoretical best top speed setup",   "department": "telemetr
+
+## Checkpoint Summary
+
+**Qualifying Deep-Dive Analysis - Event 2, Year 2026**
+
+1. **Grid Hierarchy and Pace Spread**: The grid is led by ANT with a best time of 1:32.064, followed closely by RUS (1:32.286) and HAM (1:32.415). The pace spread at the top is relatively tight, indicating strong competition among the front-runners.
+
+2. **Time Left on the Table**: ANT has left the least time to theoretical best with only 0.01s remaining, showcasing a near-perfect lap. Drivers like LAW and LIN have significant room for improvement, leaving 0.398s and 0.381s respectively to reach their theoretical best.
+
+3. **Sector Dominance Map**:
+   - Sector 1: NOR (0:23.995)
+   - Sector 2: LEC (0:27.660)
+   - Sector 3: ANT (0:40.387)
+
+   This map highlights the strengths of different drivers in specific parts of the track, which can be crucial for understanding their overall performance and setup preferences.
+
+4. **Straight-Line Speed Context**: The top straight-line speed is held by COL at 343.0 km/h, followed closely by GAS (340.0 km/h) and SAI (338.0 km/h). This high-speed capability suggests that these drivers have a setup optimized for higher downforce or better aerodynamics, which could be advantageous in qualifying but may require adjustments for race conditions.
+
+5. **Qualifying Shape and Likely Race Behavior**: Given the tight pace spread at the top of the grid,
+...
+with ANT leading the way and leaving minimal time to theoretical best. This indicates that the front-runners are well-prepared for the race, but there is still significant room for improvement among other drivers, which could lead to exciting overtakes during the race.
+
+---
+## Telemetry Analysis Task 3 Checkpoint
+**Type:** telemetry_finding | **Confidence:** 45% | **Time:** 2026-03-20T15:09:32.688393
+**Tags:** checkpoint, telemetry_analysis, task_3
+
+**Crew:** Telemetry Analysis
+**Task:** 3
+**Agent:** F1 Telemetry Deep Analyst
+
+**Task Description Preview:** Preloaded memory for this task (telemetry memory: driver battles): Use this as already-retrieved historical context. Do not repeat the same retrieval unless you need a narrower follow-up query. {   "query": "event 2 driver battle qualifying gap race gap sector comparison top teams",   "department": 
+
+## Checkpoint Summary
+
+**Driver Battle Scorecard for Event 2, 2026**
+
+**Mercedes**
+- Qualifying Gap: ANT (faster) by 10.151s
+- Sector Wins: S1 - RUS, S2 & S3 - ANT
+- Race Performance: RUS (faster) by 0.075s
+
+**Ferrari**
+- Qualifying Gap: LEC (faster) by 0.82s
+- Sector Wins: S1 & S2 - LEC, S3 - HAM
+- Race Performance: LEC (faster) by 0.072s
+
+**McLaren**
+- Qualifying Gap: NOR (faster) by 1.542s
+- Sector Wins: S1 - NOR, S2 & S3 - PIA
+- Race Performance: No race data available
+
+**Alpine**
+- Qualifying Gap: COL (faster) by 5.417s
+- Sector Wins: All sectors - GAS
+- Race Performance: GAS (faster) by 0.975s
+
+**Qualifying vs Race Correlation**: The correlation between qualifying and race gaps is very low at -0.0056, indicating that the faster qualifier in each team does not necessarily translate to a faster racer.
+
+**Findings**
+- **Closest Qualifying Battle:** Ferrari (0.82s)
+- **Widest Qualifying Battle:** Mercedes (10.151s)
+
+This scorecard provides a compact overview of the telemetry-level driver comparisons for the top teams, highlighting the statistical analysis of qualifying-to-race correlation and identifying which battles are closest and most one-sided.
+
+---
+## Telemetry Analysis Task 1 Checkpoint
+**Type:** telemetry_finding | **Confidence:** 45% | **Time:** 2026-03-20T15:30:48.109341
+**Tags:** checkpoint, telemetry_analysis, task_1
+
+**Crew:** Telemetry Analysis
+**Task:** 1
+**Agent:** F1 Telemetry Deep Analyst
+
+**Task Description Preview:** Preloaded memory for this task (telemetry memory: race pace): Use this as already-retrieved historical context. Do not repeat the same retrieval unless you need a narrower follow-up query. {   "query": "event 2 recent race pace tyre degradation consistency anomaly",   "department": "telemetry",   "d
+
+## Checkpoint Summary
+
+Detailed Race Pace Analysis for Event '2' (Year 2026)
+
+**Race-Trim Pace Hierarchy**
+1. **ANT**: Leading with an average lap time of 97.738 seconds and a consistency CV% of 7.526%. 
+2. **HAM**: Second fastest at 98.306 seconds, slightly behind ANT.
+3. **LEC**: Third fastest at 98.381 seconds with the highest pace degradation signal among top drivers (-0.1175 s/lap).
+4. **RUS**: Fourth fastest at 98.88 seconds but with a high consistency CV% of 10.248%, indicating less consistent performance.
+5. **GAS**: Fifth fastest at 99.01 seconds, showing good pace degradation (-0.1314 s/lap).
+
+**Best and Worst Tyre Degradation Signals**
+- **Highest Pace Degradation:** LEC with a signal of -0.1175 s/lap.
+- **Lowest Pace Degradation:** ANT at -0.121 s/lap, indicating slightly better tyre management compared to others.
+
+**Drivers Combining Pace with Consistency**
+- **ANT**: Leads in both pace and consistency (CV% = 7.526%).
+- **HAM**: Shows a good balance between pace and consistency despite having the second-highest CV% among top drivers.
+- **LEC**: Despite leading in pace degradation, LEC shows a relatively low CV%, indicating consistent performance.
+
+**Strongest Anomaly or Outlier Pattern**
+- **PER**: Exhibits the strongest anomaly signal with an autocorrelation of 0.7411 and three outliers, suggesting significant variability in lap times.
+- **LAW**: Also shows notable anomalies with four outliers and a second-half pace delta of -7.478 seconds.
+
+**Published Insight**
+ANT leads race-trim pace at 97.738s average with 7.526% CV, demonstrating the best combination of speed and consistency among all drivers in this event.
+
+---
+## Telemetry Analysis Task 2 Checkpoint
+**Type:** telemetry_finding | **Confidence:** 45% | **Time:** 2026-03-20T15:31:15.762928
+**Tags:** checkpoint, telemetry_analysis, task_2
+
+**Crew:** Telemetry Analysis
+**Task:** 2
+**Agent:** F1 Telemetry Deep Analyst
+
+**Task Description Preview:** Preloaded memory for this task (telemetry memory: qualifying): Use this as already-retrieved historical context. Do not repeat the same retrieval unless you need a narrower follow-up query. {   "query": "event 2 qualifying sector dominance theoretical best top speed setup",   "department": "telemetr
+
+## Checkpoint Summary
+
+**Qualifying Deep Dive for Event 2, Year 2026**
+
+1. **Grid Hierarchy and Pace Spread**
+   - The grid is led by ANT with a best time of 1:32.064, followed closely by RUS (1:32.286) and HAM (1:32.415). LEC and PIA occupy the fourth and fifth positions respectively.
+   
+2. **Time Left on Theoretical Best**
+   - ANT has left only 0.01 seconds to the theoretical best lap, indicating a near-perfect performance in qualifying. In contrast, LAW, LIN, PER, and BEA have significant gaps (0.398s, 0.381s, 0.346s, and 0.189s respectively) compared to their theoretical best laps.
+
+3. **Sector Dominance Map**
+   - Sector 1 is dominated by NOR with a time of 0:23.995.
+   - Sector 2 is led by LEC at 0:27.660.
+   - Sector 3 sees ANT as the fastest driver, posting a time of 0:40.387.
+
+4. **Straight-Line Speed Context**
+   - The top straight-line speed was achieved by COL with a velocity of 343.0 km/h, followed closely by GAS (340.0 km/h), SAI (338.0 km/h), LIN (335.0 km/h), and BOR (335.0 km/h). This suggests that the setup for these drivers prioritizes high-speed stability and aerodynamic efficiency.
+
+5. **Qualifying Shape and Likely Race Behavior**
+   - The qualifying performance of ANT, who has left minimal time to the theoretical best lap, indicates a strong car setup optimized for short bursts of speed during qualifying. However, this may not
+...
+ment of tires and fuel to maintain this pace throughout the race distance.
+
+This deep dive into qualifying highlights the nuances of performance across sectors and straight-line speed, providing valuable insights for predicting race behavior based on qualifying results.
+
+---
+## Telemetry Analysis Task 3 Checkpoint
+**Type:** telemetry_finding | **Confidence:** 45% | **Time:** 2026-03-20T15:31:36.847656
+**Tags:** checkpoint, telemetry_analysis, task_3
+
+**Crew:** Telemetry Analysis
+**Task:** 3
+**Agent:** F1 Telemetry Deep Analyst
+
+**Task Description Preview:** Preloaded memory for this task (telemetry memory: driver battles): Use this as already-retrieved historical context. Do not repeat the same retrieval unless you need a narrower follow-up query. {   "query": "event 2 driver battle qualifying gap race gap sector comparison top teams",   "department": 
+
+## Checkpoint Summary
+
+**Driver Battle Scorecard for Event 2, Year 2026**
+
+**1. Qualifying Gaps per Top Team**
+- Mercedes (ANT vs RUS): 10.151s
+- Ferrari (HAM vs LEC): 0.82s
+- McLaren (PIA vs NOR): 1.542s
+- Alpine (GAS vs COL): 5.417s
+
+**2. Sector Wins**
+- Mercedes: RUS wins S1, ANT wins S2 and S3.
+- Ferrari: LEC wins S1 and S2, HAM wins S3.
+- McLaren: NOR wins S1, PIA wins S2 and S3.
+- Alpine: GAS wins all sectors (S1, S2, S3).
+
+**3. Race Performance**
+- Mercedes: RUS is faster in the race with a gap of 0.075s.
+- Ferrari: LEC remains faster in the race with a gap of 0.072s.
+- McLaren: No race data available for comparison.
+- Alpine: GAS is faster in the race with a gap of 0.975s.
+
+**4. Qualifying vs Race Gap Correlation**
+The correlation between qualifying and race gaps is -0.0056, indicating no significant relationship between how drivers perform in qualifying versus their performance in the race.
+
+**5. Battle Analysis**
+- **Closest Battle:** Ferrari (HAM vs LEC) with a qualifying gap of 0.82s.
+- **Most One-Sided Battle:** Mercedes (ANT vs RUS) with a large qualifying gap of 10.151s.
+
+This scorecard provides a comprehensive view of the telemetry-level driver comparisons for the top teams, highlighting key differences in performance and consistency across sectors and sessions.

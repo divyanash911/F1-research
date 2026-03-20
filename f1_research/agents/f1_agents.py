@@ -7,6 +7,7 @@ import copy
 import time
 
 from crewai import Agent
+from litellm import max_tokens
 from llm_config import get_llm, get_llm_for_backend, is_small_model_mode
 from logger import log_tool_call
 from tools.telemetry_tools import ALL_TELEMETRY_TOOLS
@@ -107,8 +108,8 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         llm_fast = get_llm(fast=True, conservative=conservative)
 
     small_model = is_small_model_mode(backend=backend, fast=False) or conservative
-    shared_max_iter = 8 if small_model else 20
-    heavy_max_iter = 10 if small_model else 25
+    shared_max_iter = 2 if small_model else 3
+    heavy_max_iter = 4 if small_model else 5
     shared_memory = False if small_model else True
     shared_instructions = GENERAL_AGENT_INSTRUCTIONS
     if small_model:
@@ -141,6 +142,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=True,
         max_iter=shared_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 2. Telemetry Deep Dive Analyst ────────────────────────────────────
@@ -170,6 +172,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=False,
         max_iter=heavy_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 3. Race Strategy Analyst ──────────────────────────────────────────
@@ -198,6 +201,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=False,
         max_iter=shared_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 4. Driver Performance Analyst ────────────────────────────────────
@@ -226,6 +230,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=False,
         max_iter=shared_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 5. Constructor & Car Performance Analyst ─────────────────────────
@@ -254,6 +259,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=False,
         max_iter=shared_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 6. Championship Prediction Analyst ───────────────────────────────
@@ -283,6 +289,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=False,
         max_iter=shared_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 7. News & Current Events Analyst ─────────────────────────────────
@@ -309,8 +316,9 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         llm=llm_fast,
         verbose=True,
         allow_delegation=False,
-        max_iter=min(shared_max_iter, 8),
+        max_iter=min(shared_max_iter, 2),
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 8. Statistical Anomaly Hunter ───────────────────────────────────
@@ -344,6 +352,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         allow_delegation=False,
         max_iter=heavy_max_iter,
         memory=shared_memory,
+        max_tokens=1000
     )
 
     # ── 9. Debate Moderator / Devil's Advocate ───────────────────────────
@@ -372,8 +381,9 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
-        max_iter=min(shared_max_iter, 8),
+        max_iter=min(shared_max_iter, 2),
         memory=shared_memory,
+        max_tokens=1000
     )
 
     return {

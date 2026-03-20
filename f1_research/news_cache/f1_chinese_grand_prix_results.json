@@ -1,0 +1,42 @@
+{
+  "query": "F1 Chinese Grand Prix results",
+  "count": 5,
+  "results": [
+    {
+      "title": "F1 Standings 2026 After The Chinese Grand Prix",
+      "url": "https://sports.yahoo.com/articles/f1-standings-2026-chinese-grand-151105418.html",
+      "source": "Yahoo Sports",
+      "date": "2026-03-15T15:19:00+00:00",
+      "summary": "At 19 years and 202 days, Antonelli became the second youngest F1 grand prix winner, trailing only behind Max Verstappen who claimed his maiden victory at 18 years and 228 days..."
+    },
+    {
+      "title": "F1 Chinese Grand Prix 2026 results: Final classification with penalties applied",
+      "url": "https://www.gpfans.com/en/f1-news/1078977/f1-chinese-grand-prix-2026-results-final-classification-penalties-applied/",
+      "source": "GPFans",
+      "date": "2026-03-15T13:55:00+00:00",
+      "summary": "The second round of the 2026 F1 season has concluded and the final results for the Chinese Grand Prix have been officially confirmed by the FIA. Don't worry Lewis Hamilton fans,..."
+    },
+    {
+      "title": "F1 Chinese Grand Prix 2026: Sprint qualifying results as Russell and Mercedes continue dominance",
+      "url": "https://www.msn.com/en-us/sports/other/f1-chinese-grand-prix-2026-sprint-qualifying-results-as-russell-and-mercedes-continue-dominance/ar-AA1YxvDe",
+      "source": "Sports Illustrated",
+      "date": "2026-03-13T10:09:40+00:00",
+      "summary": "Sprint qualifying results as Mercedes continues to dominate at the F1 Chinese Grand Prix."
+    },
+    {
+      "title": "F1 Chinese Grand Prix results: Who won, full classification, driver standings after Shanghai race",
+      "url": "https://www.msn.com/en-us/sports/other/f1-chinese-grand-prix-results-who-won-full-classification-driver-standings-after-shanghai-race/ar-AA1YEiQ0",
+      "source": "Sporting News",
+      "date": "2026-03-15T09:26:00+00:00",
+      "summary": "The second race of the 2026 F1 season takes place at the Shanghai International Circuit."
+    },
+    {
+      "title": "F1 results as Kimi Antonelli claims first ever win at Chinese Grand Prix 2026",
+      "url": "https://www.msn.com/en-us/sports/motorsports/f1-results-as-kimi-antonelli-claims-first-ever-win-at-chinese-grand-prix-2026/ar-AA1YFeFI",
+      "source": "Sports Illustrated",
+      "date": "2026-03-15T09:08:48+00:00",
+      "summary": "The young Italian star now moves within four points of team-mate George Russell in the standings after a brilliant race."
+    }
+  ],
+  "fetched": "2026-03-20T15:19:24.554734"
+}

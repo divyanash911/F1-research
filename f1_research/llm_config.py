@@ -52,7 +52,7 @@ def get_runtime_llm_settings(backend: str | None = None, fast: bool = False, con
     small_model = is_small_model_mode(backend=backend, fast=fast)
     temperature = 0.7
     timeout = 90
-    max_tokens = 4096
+    max_tokens = 1000
 
     if small_model:
         temperature = 0.8
@@ -129,9 +129,9 @@ def _ollama_llm(fast: bool, conservative: bool = False):
         base_url=normalized_base_url,
         api_base=normalized_base_url,
         api_key="ollama",
-        temperature=settings["temperature"],
-        timeout=max(180, settings["timeout"]),
-        max_tokens=min(4096 * 2, settings["max_tokens"]),
+        temperature=settings["temperature"], 
+        timeout=max(500, settings["timeout"]),
+        max_tokens=min(1000 * 2, settings["max_tokens"]),
     )
 
 

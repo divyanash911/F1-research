@@ -36,6 +36,9 @@ class TaskCheckpoint:
     description_preview: str
     agent_role: str
     output: str
+    had_preloaded_memory: bool = False
+    preloaded_memory_preview: str = ""
+    tools_used: list[str] | None = None
 
 
 class RunState:
@@ -69,6 +72,9 @@ class RunState:
                 "description_preview": checkpoint.description_preview,
                 "agent_role": checkpoint.agent_role,
                 "output": checkpoint.output,
+                "had_preloaded_memory": checkpoint.had_preloaded_memory,
+                "preloaded_memory_preview": checkpoint.preloaded_memory_preview,
+                "tools_used": list(checkpoint.tools_used or []),
             }
         )
         self._data["tasks"] = tasks

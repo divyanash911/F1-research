@@ -119,6 +119,7 @@ prediction_logger  = _make_logger("f1_research.predictions",  "race_predictions.
 debate_logger      = _make_logger("f1_research.debate",       "agent_debates.log")
 error_logger       = _make_logger("f1_research.errors",       "errors.log", json_mode=True)
 perf_logger        = _make_logger("f1_research.performance",  "performance.log")
+task_logger        = _make_logger("f1_research.tasks",        "task_events.log", json_mode=True)
 
 # Console logger (shown in terminal)
 console = _make_console_logger("main")
@@ -129,6 +130,22 @@ console.handlers[0].setFormatter(F1Formatter())
 _console_fh = logging.FileHandler(SESSION_DIR / "console_output.log", encoding="utf-8")
 _console_fh.setFormatter(FileFormatter())
 console.addHandler(_console_fh)
+
+_task_context = threading.local()
+
+
+def set_task_context(context: dict | None) -> None:
+    payload = dict(context or {})
+    payload.setdefault("tools_used", [])
+    _task_context.value = payload
+
+
+def get_task_context() -> dict:
+    return dict(getattr(_task_context, "value", {}) or {})
+
+
+def clear_task_context() -> None:
+    _task_context.value = {}
 
 # ── Convenience logging functions ───────────────────────────────────────────
 
@@ -160,12 +177,19 @@ def log_tool_call(agent_name: str, tool_name: str, inputs: dict, output: Any,
         pathname="", lineno=0, msg="",
         args=(), exc_info=None
     )
+    live_context = getattr(_task_context, "value", {}) or {}
+    if isinstance(live_context, dict):
+        tools_used = live_context.setdefault("tools_used", [])
+        if tool_name not in tools_used:
+            tools_used.append(tool_name)
+    task_context = get_task_context()
     record.extra_data = {
         "agent":       agent_name,
         "tool":        tool_name,
         "inputs":      inputs,
         "output_preview": str(output)[:500] if output else None,
         "duration_ms": round(duration_ms, 2),
+        "task":        task_context or None,
     }
     tool_logger.handle(record)
     console.debug(f"🔧 Tool: {Colors.ORANGE}{tool_name}{Colors.RESET} by {agent_name} ({duration_ms:.0f}ms)")
@@ -276,6 +300,26 @@ def log_research_summary(session_summary: dict):
     summary_logger.info(
         f"\n{'═'*70}\n📋 RESEARCH SESSION SUMMARY\n{'═'*70}\n"
         f"{json.dumps(session_summary, indent=2)}\n"
+    )
+
+
+def log_task_event(event_type: str, payload: dict):
+    """Write a structured per-task event for later inspection."""
+    record = logging.LogRecord(
+        name="f1_research.tasks", level=logging.INFO,
+        pathname="", lineno=0, msg=event_type,
+        args=(), exc_info=None
+    )
+    record.extra_data = payload
+    task_logger.handle(record)
+
+
+def log_task_summary(crew_name: str, task_index: int, agent_role: str, summary: dict):
+    """Append a readable task summary into research_summary.log."""
+    summary_logger.info(
+        f"\n{'─'*70}\n"
+        f"TASK SUMMARY | Crew: {crew_name} | Task: {task_index + 1} | Agent: {agent_role}\n"
+        f"{json.dumps(summary, indent=2)}\n"
     )
 
 def log_performance(component: str, operation: str, duration_ms: float, metadata: dict = None):

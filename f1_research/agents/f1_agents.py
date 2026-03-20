@@ -3,8 +3,12 @@ F1 Research Program - Specialized Agent Definitions
 Each agent has a deep, focused role and contributes to autonomous research.
 """
 
+import copy
+import time
+
 from crewai import Agent
 from llm_config import get_llm, get_llm_for_backend, is_small_model_mode
+from logger import log_tool_call
 from tools.telemetry_tools import ALL_TELEMETRY_TOOLS
 from tools.research_tools  import ALL_RESEARCH_TOOLS
 
@@ -18,6 +22,8 @@ General instructions (apply to every task):
 - Never fabricate, alter, truncate, or re-format tool output in a way that changes meaning.
 - If you include tool output verbatim, preserve it exactly and clearly label it.
 - If tool output is large, summarize it and reference the key fields/rows; do not quote partial fragments that could be misleading.
+- Use `retrieve_relevant_insights` or `read_published_insights` for historical memory instead of pasting large old insight files into your answer.
+- Before publishing a new insight, check department memory with `retrieve_relevant_insights` using your claim/topic so you avoid repeating an existing finding unless you have genuinely new evidence.
 - If a tool call fails, state the error message plainly and propose the next best tool/action.
 - Use the minimum number of tool calls needed. Prefer 1-2 strong tool calls over broad exploration.
 - If you already have enough evidence for a useful partial answer, stop and return it instead of continuing to search.
@@ -31,6 +37,58 @@ def _compact(text: str, sentences: int = 2) -> str:
         return text
     trimmed = ". ".join(parts[:sentences]).strip()
     return trimmed if trimmed.endswith(".") else f"{trimmed}."
+
+
+def _safe_log_value(value):
+    if isinstance(value, (str, int, float, bool)) or value is None:
+        return value
+    if isinstance(value, (list, tuple)):
+        return [_safe_log_value(v) for v in value[:10]]
+    if isinstance(value, dict):
+        return {str(k): _safe_log_value(v) for k, v in list(value.items())[:10]}
+    return repr(value)
+
+
+def _instrument_tools(agent_role: str, tools: list) -> list:
+    instrumented = []
+    for tool in tools:
+        original_func = getattr(tool, "func", None)
+        tool_name = getattr(tool, "name", str(tool))
+        if not callable(original_func):
+            instrumented.append(tool)
+            continue
+
+        wrapped_tool = tool.model_copy(deep=False) if hasattr(tool, "model_copy") else copy.copy(tool)
+        if getattr(original_func, "_f1_logged_tool", False):
+            instrumented.append(wrapped_tool)
+            continue
+
+        def wrapped_func(*args, __func=original_func, __tool_name=tool_name, **kwargs):
+            started = time.time()
+            try:
+                result = __func(*args, **kwargs)
+                log_tool_call(
+                    agent_name=agent_role,
+                    tool_name=__tool_name,
+                    inputs={"args": _safe_log_value(list(args)), **{k: _safe_log_value(v) for k, v in kwargs.items()}},
+                    output=result,
+                    duration_ms=(time.time() - started) * 1000,
+                )
+                return result
+            except Exception as exc:
+                log_tool_call(
+                    agent_name=agent_role,
+                    tool_name=__tool_name,
+                    inputs={"args": _safe_log_value(list(args)), **{k: _safe_log_value(v) for k, v in kwargs.items()}},
+                    output=f"ERROR: {exc}",
+                    duration_ms=(time.time() - started) * 1000,
+                )
+                raise
+
+        wrapped_func._f1_logged_tool = True
+        wrapped_tool.func = wrapped_func
+        instrumented.append(wrapped_tool)
+    return instrumented
 
 
 def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
@@ -77,7 +135,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "conventional wisdom. You actively debate findings and seek contradictions.",
             sentences=2 if small_model else 5,
         ),
-        tools=ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS,
+        tools=_instrument_tools("F1 Chief Research Officer", ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=True,
@@ -106,7 +164,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "non-obvious: why a car is 0.2s faster through sector 2 despite similar "
             "top speeds, or how a driver's throttle application reveals front wing wear."
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS,
+        tools=_instrument_tools("F1 Telemetry Deep Analyst", ALL_TELEMETRY_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
@@ -134,7 +192,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "calculate undercut windows to the tenth of a second, and have an intuition "
             "for when a safety car is coming that saves or costs championships."
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS,
+        tools=_instrument_tools("F1 Race Strategy and Pit Stop Analyst", ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
@@ -162,7 +220,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "they control for car performance. You've predicted several world champions "
             "based on data patterns before they won their first title."
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS,
+        tools=_instrument_tools("F1 Driver Performance and Form Analyst", ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
@@ -190,7 +248,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "performance before the data confirms it. You use top speed data, sector "
             "times, and tyre usage patterns to fingerprint each car's characteristics."
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS,
+        tools=_instrument_tools("F1 Constructor and Car Development Analyst", ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
@@ -219,7 +277,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "track, and degradation models.' You update your models in real-time and "
             "love being held accountable for your predictions."
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS,
+        tools=_instrument_tools("F1 Championship Prediction and Race Forecaster", ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
@@ -247,7 +305,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "can prove or disprove. When a driver says 'the car felt great,' you check "
             "their sector times to see if it's spin or truth."
         , sentences=2 if small_model else 5),
-        tools=ALL_RESEARCH_TOOLS + [ALL_TELEMETRY_TOOLS[0]],  # schedule tool
+        tools=_instrument_tools("F1 News and Current Events Research Analyst", ALL_RESEARCH_TOOLS + [ALL_TELEMETRY_TOOLS[0]]),  # schedule tool
         llm=llm_fast,
         verbose=True,
         allow_delegation=False,
@@ -280,7 +338,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "per lap on a given compound. You challenge every commonly-held belief "
             "with: 'But what does the data actually say?'"
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS,
+        tools=_instrument_tools("F1 Statistical Anomaly and Hidden Pattern Detector", ALL_TELEMETRY_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,
@@ -310,7 +368,7 @@ def make_agents(backend: str | None = None, conservative: bool = False) -> dict:
             "debate, thrive on finding holes in arguments, and ultimately produce "
             "better science by making everyone prove their case beyond reasonable doubt."
         , sentences=2 if small_model else 5),
-        tools=ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS,
+        tools=_instrument_tools("F1 Research Devil's Advocate and Quality Challenger", ALL_TELEMETRY_TOOLS + ALL_RESEARCH_TOOLS),
         llm=llm_main,
         verbose=True,
         allow_delegation=False,

@@ -1,0 +1,451 @@
+{
+  "qualifying_teammates": {
+    "event": "2",
+    "session": "Q",
+    "year": 2026,
+    "team_battles": {
+      "Mercedes": {
+        "driver_1": "ANT",
+        "driver_2": "RUS",
+        "d1_median_pace_s": 100.781,
+        "d2_median_pace_s": 110.931,
+        "pace_gap_s": 10.151,
+        "faster_driver": "ANT",
+        "gap_direction": "ANT faster by 10.151s"
+      },
+      "Ferrari": {
+        "driver_1": "HAM",
+        "driver_2": "LEC",
+        "d1_median_pace_s": 106.805,
+        "d2_median_pace_s": 105.986,
+        "pace_gap_s": 0.82,
+        "faster_driver": "LEC",
+        "gap_direction": "LEC faster by 0.820s"
+      },
+      "McLaren": {
+        "driver_1": "PIA",
+        "driver_2": "NOR",
+        "d1_median_pace_s": 105.395,
+        "d2_median_pace_s": 103.853,
+        "pace_gap_s": 1.542,
+        "faster_driver": "NOR",
+        "gap_direction": "NOR faster by 1.542s"
+      },
+      "Alpine": {
+        "driver_1": "GAS",
+        "driver_2": "COL",
+        "d1_median_pace_s": 116.611,
+        "d2_median_pace_s": 111.194,
+        "pace_gap_s": 5.417,
+        "faster_driver": "COL",
+        "gap_direction": "COL faster by 5.417s"
+      },
+      "Red Bull Racing": {
+        "driver_1": "VER",
+        "driver_2": "HAD",
+        "d1_median_pace_s": 101.715,
+        "d2_median_pace_s": 103.911,
+        "pace_gap_s": 2.196,
+        "faster_driver": "VER",
+        "gap_direction": "VER faster by 2.196s"
+      },
+      "Haas F1 Team": {
+        "driver_1": "BEA",
+        "driver_2": "OCO",
+        "d1_median_pace_s": 105.574,
+        "d2_median_pace_s": 105.576,
+        "pace_gap_s": 0.002,
+        "faster_driver": "BEA",
+        "gap_direction": "BEA faster by 0.002s"
+      },
+      "Audi": {
+        "driver_1": "HUL",
+        "driver_2": "BOR",
+        "d1_median_pace_s": 114.547,
+        "d2_median_pace_s": 119.645,
+        "pace_gap_s": 5.099,
+        "faster_driver": "HUL",
+        "gap_direction": "HUL faster by 5.099s"
+      },
+      "Racing Bulls": {
+        "driver_1": "LAW",
+        "driver_2": "LIN",
+        "d1_median_pace_s": 111.381,
+        "d2_median_pace_s": 114.185,
+        "pace_gap_s": 2.804,
+        "faster_driver": "LAW",
+        "gap_direction": "LAW faster by 2.804s"
+      },
+      "Williams": {
+        "driver_1": "SAI",
+        "driver_2": "ALB",
+        "d1_median_pace_s": 115.364,
+        "d2_median_pace_s": 113.906,
+        "pace_gap_s": 1.458,
+        "faster_driver": "ALB",
+        "gap_direction": "ALB faster by 1.458s"
+      },
+      "Aston Martin": {
+        "driver_1": "ALO",
+        "driver_2": "STR",
+        "d1_median_pace_s": 117.571,
+        "d2_median_pace_s": 120.023,
+        "pace_gap_s": 2.452,
+        "faster_driver": "ALO",
+        "gap_direction": "ALO faster by 2.452s"
+      },
+      "Cadillac": {
+        "driver_1": "BOT",
+        "driver_2": "PER",
+        "d1_median_pace_s": 106.026,
+        "d2_median_pace_s": 105.889,
+        "pace_gap_s": 0.137,
+        "faster_driver": "PER",
+        "gap_direction": "PER faster by 0.137s"
+      }
+    }
+  },
+  "race_teammates": {
+    "event": "2",
+    "session": "R",
+    "year": 2026,
+    "team_battles": {
+      "Mercedes": {
+        "driver_1": "ANT",
+        "driver_2": "RUS",
+        "d1_median_pace_s": 96.513,
+        "d2_median_pace_s": 96.438,
+        "pace_gap_s": 0.075,
+        "faster_driver": "RUS",
+        "gap_direction": "RUS faster by 0.075s"
+      },
+      "Ferrari": {
+        "driver_1": "HAM",
+        "driver_2": "LEC",
+        "d1_median_pace_s": 96.923,
+        "d2_median_pace_s": 96.851,
+        "pace_gap_s": 0.072,
+        "faster_driver": "LEC",
+        "gap_direction": "LEC faster by 0.072s"
+      },
+      "Haas F1 Team": {
+        "driver_1": "BEA",
+        "driver_2": "OCO",
+        "d1_median_pace_s": 97.615,
+        "d2_median_pace_s": 98.758,
+        "pace_gap_s": 1.143,
+        "faster_driver": "BEA",
+        "gap_direction": "BEA faster by 1.143s"
+      },
+      "Alpine": {
+        "driver_1": "GAS",
+        "driver_2": "COL",
+        "d1_median_pace_s": 97.614,
+        "d2_median_pace_s": 98.589,
+        "pace_gap_s": 0.975,
+        "faster_driver": "GAS",
+        "gap_direction": "GAS faster by 0.975s"
+      },
+      "Racing Bulls": {
+        "driver_1": "LAW",
+        "driver_2": "LIN",
+        "d1_median_pace_s": 98.333,
+        "d2_median_pace_s": 99.139,
+        "pace_gap_s": 0.806,
+        "faster_driver": "LAW",
+        "gap_direction": "LAW faster by 0.806s"
+      },
+      "Red Bull Racing": {
+        "driver_1": "HAD",
+        "driver_2": "VER",
+        "d1_median_pace_s": 98.205,
+        "d2_median_pace_s": 97.959,
+        "pace_gap_s": 0.246,
+        "faster_driver": "VER",
+        "gap_direction": "VER faster by 0.246s"
+      },
+      "Cadillac": {
+        "driver_1": "BOT",
+        "driver_2": "PER",
+        "d1_median_pace_s": 99.906,
+        "d2_median_pace_s": 100.106,
+        "pace_gap_s": 0.2,
+        "faster_driver": "BOT",
+        "gap_direction": "BOT faster by 0.200s"
+      },
+      "Aston Martin": {
+        "driver_1": "ALO",
+        "driver_2": "STR",
+        "d1_median_pace_s": 101.148,
+        "d2_median_pace_s": 101.174,
+        "pace_gap_s": 0.026,
+        "faster_driver": "ALO",
+        "gap_direction": "ALO faster by 0.026s"
+      }
+    }
+  },
+  "detailed_comparisons": {
+    "Mercedes": {
+      "event": "2",
+      "year": 2026,
+      "session": "Q",
+      "comparison": {
+        "ANT": {
+          "lap_time": "1:32.064",
+          "compound": "SOFT",
+          "max_speed_kmh": 332.0,
+          "min_speed_kmh": 68.0,
+          "avg_speed_kmh": 210.3,
+          "full_throttle_pct": 55.59,
+          "off_throttle_pct": 21.78,
+          "braking_pct": 22.35,
+          "gear_distribution": {
+            "1": 14,
+            "2": 69,
+            "3": 34,
+            "4": 41,
+            "5": 25,
+            "6": 38,
+            "7": 68,
+            "8": 60
+          },
+          "top_gear_pct": 17.19,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.013",
+            "s2": "0:27.664",
+            "s3": "0:40.387"
+          }
+        },
+        "RUS": {
+          "lap_time": "1:32.286",
+          "compound": "SOFT",
+          "max_speed_kmh": 333.0,
+          "min_speed_kmh": 68.0,
+          "avg_speed_kmh": 210.0,
+          "full_throttle_pct": 55.91,
+          "off_throttle_pct": 20.17,
+          "braking_pct": 18.44,
+          "gear_distribution": {
+            "1": 13,
+            "2": 50,
+            "3": 45,
+            "4": 27,
+            "5": 48,
+            "6": 41,
+            "7": 56,
+            "8": 67
+          },
+          "top_gear_pct": 19.31,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.012",
+            "s2": "0:27.783",
+            "s3": "0:40.491"
+          }
+        }
+      },
+      "deltas": {
+        "top_speed_delta_kmh": -1.0,
+        "throttle_delta_pct": -0.32,
+        "braking_delta_pct": 3.91
+      }
+    },
+    "Ferrari": {
+      "event": "2",
+      "year": 2026,
+      "session": "Q",
+      "comparison": {
+        "HAM": {
+          "lap_time": "1:32.415",
+          "compound": "SOFT",
+          "max_speed_kmh": 329.0,
+          "min_speed_kmh": 68.0,
+          "avg_speed_kmh": 211.4,
+          "full_throttle_pct": 54.26,
+          "off_throttle_pct": 15.06,
+          "braking_pct": 19.32,
+          "gear_distribution": {
+            "1": 8,
+            "2": 54,
+            "3": 37,
+            "4": 27,
+            "5": 43,
+            "6": 43,
+            "7": 74,
+            "8": 66
+          },
+          "top_gear_pct": 18.75,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.184",
+            "s2": "0:27.696",
+            "s3": "0:40.535"
+          }
+        },
+        "LEC": {
+          "lap_time": "1:32.428",
+          "compound": "SOFT",
+          "max_speed_kmh": 330.0,
+          "min_speed_kmh": 66.0,
+          "avg_speed_kmh": 208.2,
+          "full_throttle_pct": 54.55,
+          "off_throttle_pct": 10.51,
+          "braking_pct": 16.76,
+          "gear_distribution": {
+            "1": 14,
+            "2": 54,
+            "3": 33,
+            "4": 38,
+            "5": 50,
+            "6": 49,
+            "7": 57,
+            "8": 57
+          },
+          "top_gear_pct": 16.19,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.118",
+            "s2": "0:27.660",
+            "s3": "0:40.650"
+          }
+        }
+      },
+      "deltas": {
+        "top_speed_delta_kmh": -1.0,
+        "throttle_delta_pct": -0.29,
+        "braking_delta_pct": 2.56
+      }
+    },
+    "McLaren": {
+      "event": "2",
+      "year": 2026,
+      "session": "Q",
+      "comparison": {
+        "PIA": {
+          "lap_time": "1:32.550",
+          "compound": "SOFT",
+          "max_speed_kmh": 330.0,
+          "min_speed_kmh": 68.0,
+          "avg_speed_kmh": 211.4,
+          "full_throttle_pct": 50.43,
+          "off_throttle_pct": 26.78,
+          "braking_pct": 20.51,
+          "gear_distribution": {
+            "2": 61,
+            "3": 32,
+            "4": 30,
+            "5": 39,
+            "6": 37,
+            "7": 67,
+            "8": 85
+          },
+          "top_gear_pct": 24.22,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.120",
+            "s2": "0:27.729",
+            "s3": "0:40.701"
+          }
+        },
+        "NOR": {
+          "lap_time": "1:32.608",
+          "compound": "SOFT",
+          "max_speed_kmh": 331.0,
+          "min_speed_kmh": 68.0,
+          "avg_speed_kmh": 209.7,
+          "full_throttle_pct": 52.94,
+          "off_throttle_pct": 24.65,
+          "braking_pct": 17.09,
+          "gear_distribution": {
+            "2": 58,
+            "3": 43,
+            "4": 27,
+            "5": 40,
+            "6": 44,
+            "7": 74,
+            "8": 71
+          },
+          "top_gear_pct": 19.89,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.078",
+            "s2": "0:27.782",
+            "s3": "0:40.748"
+          }
+        }
+      },
+      "deltas": {
+        "top_speed_delta_kmh": -1.0,
+        "throttle_delta_pct": -2.51,
+        "braking_delta_pct": 3.42
+      }
+    },
+    "Alpine": {
+      "event": "2",
+      "year": 2026,
+      "session": "Q",
+      "comparison": {
+        "GAS": {
+          "lap_time": "1:32.873",
+          "compound": "SOFT",
+          "max_speed_kmh": 340.0,
+          "min_speed_kmh": 68.0,
+          "avg_speed_kmh": 206.5,
+          "full_throttle_pct": 51.14,
+          "off_throttle_pct": 22.16,
+          "braking_pct": 22.16,
+          "gear_distribution": {
+            "1": 32,
+            "2": 60,
+            "3": 34,
+            "4": 42,
+            "5": 26,
+            "6": 38,
+            "7": 62,
+            "8": 58
+          },
+          "top_gear_pct": 16.48,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.185",
+            "s2": "0:27.788",
+            "s3": "0:40.900"
+          }
+        },
+        "COL": {
+          "lap_time": "1:33.357",
+          "compound": "SOFT",
+          "max_speed_kmh": 343.0,
+          "min_speed_kmh": 65.0,
+          "avg_speed_kmh": 205.8,
+          "full_throttle_pct": 49.29,
+          "off_throttle_pct": 20.23,
+          "braking_pct": 20.8,
+          "gear_distribution": {
+            "1": 30,
+            "2": 66,
+            "3": 23,
+            "4": 49,
+            "5": 26,
+            "6": 53,
+            "7": 48,
+            "8": 56
+          },
+          "top_gear_pct": 15.95,
+          "drs_active_pct": 0.0,
+          "sector_times": {
+            "s1": "0:24.254",
+            "s2": "0:28.078",
+            "s3": "0:41.025"
+          }
+        }
+      },
+      "deltas": {
+        "top_speed_delta_kmh": -3.0,
+        "throttle_delta_pct": 1.85,
+        "braking_delta_pct": 1.36
+      }
+    }
+  }
+}

@@ -3,3 +3,6 @@ telemetry_cache/
 __pycache__/
 *.log
 *.tmp
+.insight_index.json
+insights/.insight_index.json
+f1_research/insights/.insight_index.json

@@ -29,7 +29,7 @@ from dotenv import load_dotenv
 from crewai.tasks.task_output import TaskOutput
 
 # Load env first
-load_dotenv()
+load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
 
 # ── Disable CrewAI telemetry (prevents timeout spam in logs) ────────────────
 os.environ["OTEL_SDK_DISABLED"]        = "true"
@@ -44,7 +44,10 @@ sys.path.insert(0, str(Path(__file__).parent / "tools"))
 # Initialize logging (must be before other imports)
 from logger import (
     print_banner, console, log_research_summary, log_error,
-    log_insight, SESSION_ID, SESSION_DIR, Colors
+    log_insight, log_agent_message, log_llm_request, log_llm_response,
+    log_telemetry_analysis, log_task_event, log_task_summary,
+    set_task_context, get_task_context, clear_task_context,
+    SESSION_ID, SESSION_DIR, Colors
 )
 
 # Initialize CrewAI event callbacks (best-effort)
@@ -174,6 +177,18 @@ def _compact_task_output(task_output: TaskOutput, max_chars: int = 1800) -> Task
     )
 
 
+def _extract_preloaded_memory_preview(text: str, max_chars: int = 1000) -> str:
+    marker = "Preloaded memory for this task"
+    idx = (text or "").find(marker)
+    if idx == -1:
+        return ""
+    preview = text[idx:].strip()
+    next_section = preview.find("\n\n")
+    if next_section != -1 and next_section > 0:
+        preview = preview[: max(next_section + 1, min(len(preview), max_chars))]
+    return preview[:max_chars].strip()
+
+
 def _publish_task_checkpoint(crew_name: str, task_index: int, description: str, agent_role: str, compact_output: str) -> None:
     if os.getenv("PUBLISH_TASK_CHECKPOINTS", "true").lower() not in {"1", "true", "yes", "on"}:
         return
@@ -289,25 +304,121 @@ def run_crew_safe(crew, crew_name: str, session: ResearchSession, rebuild_crew_f
                 for i, task in enumerate(tasks):
                     if i < completed:
                         continue
+                    agent = getattr(task, "agent", None)
+                    agent_role = getattr(agent, "role", "Unknown") if agent else "Unknown"
+                    desc = (getattr(task, "description", "") or "").strip()
+                    expected = getattr(task, "expected_output", "") or ""
+                    llm_model = getattr(getattr(agent, "llm", None), "model", "unknown")
+                    preloaded_memory_preview = _extract_preloaded_memory_preview(desc)
+                    task_context = {
+                        "crew": crew_name,
+                        "task_index": i + 1,
+                        "agent_role": agent_role,
+                        "llm_model": llm_model,
+                        "had_preloaded_memory": bool(preloaded_memory_preview),
+                        "preloaded_memory_preview": preloaded_memory_preview[:500],
+                    }
+                    set_task_context(task_context)
+
+                    log_agent_message(
+                        agent_name=agent_role,
+                        message_type="TASK_START",
+                        content=desc[:4000],
+                    )
+                    log_llm_request(
+                        agent_name=agent_role,
+                        model=llm_model,
+                        prompt_tokens=0,
+                        system_prompt=getattr(agent, "instructions", "")[:1200] if agent else "",
+                        user_message=desc[:4000],
+                    )
+                    log_task_event("task_start", {
+                        **get_task_context(),
+                        "expected_output_preview": expected[:500],
+                        "description_preview": desc[:1200],
+                    })
+
                     # Execute a single task
-                    task_output = task.execute_sync()
+                    try:
+                        task_output = task.execute_sync()
+                    except Exception as task_exc:
+                        log_agent_message(
+                            agent_name=agent_role,
+                            message_type="TASK_ERROR",
+                            content=f"{type(task_exc).__name__}: {str(task_exc)[:4000]}",
+                        )
+                        log_llm_response(
+                            agent_name=agent_role,
+                            model=llm_model,
+                            response=f"TASK_ERROR: {type(task_exc).__name__}: {str(task_exc)[:4000]}",
+                        )
+                        log_task_event("task_error", {
+                            **get_task_context(),
+                            "error_type": type(task_exc).__name__,
+                            "error_message": str(task_exc)[:1000],
+                        })
+                        clear_task_context()
+                        raise
                     compact_output = _compact_task_output(task_output)
                     task.output = compact_output
                     final_result = compact_output
+                    task_meta = get_task_context()
+                    tools_used = list(task_meta.get("tools_used", []))
+
+                    log_agent_message(
+                        agent_name=agent_role,
+                        message_type="TASK_COMPLETE",
+                        content=(compact_output.raw or str(compact_output))[:4000],
+                    )
+                    log_llm_response(
+                        agent_name=agent_role,
+                        model=llm_model,
+                        response=(compact_output.raw or str(compact_output))[:4000],
+                    )
+                    if "telemetry" in crew_name.lower() or "telemetry" in agent_role.lower():
+                        log_telemetry_analysis(
+                            analysis_type=f"{crew_name} Task {i + 1}",
+                            session_info=f"event={session.recent_event} | agent={agent_role}",
+                            findings=(compact_output.raw or str(compact_output))[:4000],
+                            metrics={
+                                "task_index": i + 1,
+                                "expected_output_preview": expected[:300],
+                                "had_preloaded_memory": "Preloaded memory for this task" in desc,
+                                "tools_used": tools_used,
+                            },
+                        )
+                    log_task_event("task_complete", {
+                        **task_meta,
+                        "expected_output_preview": expected[:500],
+                        "output_preview": (compact_output.raw or str(compact_output))[:1200],
+                    })
+                    log_task_summary(
+                        crew_name=crew_name,
+                        task_index=i,
+                        agent_role=agent_role,
+                        summary={
+                            "had_preloaded_memory": bool(preloaded_memory_preview),
+                            "preloaded_memory_preview": preloaded_memory_preview[:500],
+                            "tools_used": tools_used,
+                            "output_preview": (compact_output.raw or str(compact_output))[:1000],
+                        },
+                    )
 
                     # Persist checkpoint
-                    agent = getattr(task, "agent", None)
-                    agent_role = getattr(agent, "role", "Unknown") if agent else "Unknown"
-                    desc = (getattr(task, "description", "") or "").strip().replace("\n", " ")
+                    desc = desc.replace("\n", " ")
                     run_state.mark_task_complete(
                         TaskCheckpoint(
                             index=i,
                             description_preview=desc[:160],
                             agent_role=agent_role,
                             output=compact_output.raw,
+                            had_preloaded_memory="Preloaded memory for this task" in desc,
+                            preloaded_memory_preview=preloaded_memory_preview[:500],
+                            tools_used=tools_used,
                         )
                     )
                     _publish_task_checkpoint(crew_name, i, desc, agent_role, compact_output.raw)
+                    clear_task_context()
             else:
                 # Fallback to default behavior if tasks aren't accessible
                 final_result = crew.kickoff()
@@ -326,6 +437,7 @@ def run_crew_safe(crew, crew_name: str, session: ResearchSession, rebuild_crew_f
             raise
 
         except Exception as e:
+            clear_task_context()
             last_exc = e
 
             # If the backend returned an empty/None response, rotate providers and rebuild.

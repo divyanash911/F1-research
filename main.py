@@ -27,7 +27,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 # Load env first
-load_dotenv()
+load_dotenv(dotenv_path=Path(__file__).resolve().parent / "f1_research" / ".env")
 os.environ["OTEL_SDK_DISABLED"]        = "true"
 os.environ["CREWAI_DISABLE_TELEMETRY"] = "true"
 

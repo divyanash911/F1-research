@@ -5,13 +5,46 @@ Crews debate, cross-reference, and iteratively refine findings.
 """
 
 import os
+from typing import Callable
 from crewai import Crew, Task, Process
 from logger import (
     log_agent_message, log_debate_round, log_insight,
     log_prediction, log_research_summary, console
 )
+from tools.research_tools import read_published_insights, retrieve_relevant_insights
 
 SEASON = int(os.getenv("F1_SEASON", "2026"))
+
+
+def _call_tool_func(tool_obj, **kwargs) -> str:
+    func = getattr(tool_obj, "func", None)
+    if callable(func):
+        return func(**kwargs)
+    if callable(tool_obj):
+        return tool_obj(**kwargs)
+    raise TypeError(f"Object {tool_obj!r} is not callable and has no callable .func")
+
+
+def _preloaded_memory_block(
+    title: str,
+    loader: Callable[[], str],
+    max_chars: int = 1200,
+) -> str:
+    try:
+        payload = (loader() or "").strip()
+    except Exception as exc:
+        payload = f'{{"error": "{str(exc)[:180]}"}}'
+
+    payload = payload[:max_chars].strip()
+    if not payload:
+        payload = '{"status": "empty", "message": "No preloaded memory available."}'
+
+    return (
+        f"\nPreloaded memory for this task ({title}):\n"
+        "Use this as already-retrieved historical context. Do not repeat the same "
+        "retrieval unless you need a narrower follow-up query.\n"
+        f"{payload}\n"
+    )
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -20,8 +53,22 @@ SEASON = int(os.getenv("F1_SEASON", "2026"))
 def build_news_crew(agents: dict) -> tuple[Crew, list[Task]]:
     """Crew that monitors current F1 news and sets context for other crews."""
 
+    news_memory = _preloaded_memory_block(
+        "news department memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"latest F1 news themes current context technical updates FIA regulation {SEASON}",
+            department="news",
+            date_filter="this_week",
+            max_results=4,
+            max_chars=1200,
+        ),
+    )
+
     t1 = Task(
         description=f"""
+        {news_memory}
+
         Search for the latest F1 news from the past 48 hours. Cover:
         1. Race/qualifying results from the most recent Grand Prix
         2. Team technical updates and car upgrades
@@ -56,6 +103,17 @@ def build_news_crew(agents: dict) -> tuple[Crew, list[Task]]:
 
     t2 = Task(
         description=f"""
+        {_preloaded_memory_block(
+            "today's published insight summaries",
+            lambda: _call_tool_func(
+                read_published_insights,
+                date_filter="today",
+                department="news",
+                max_chars=900,
+            ),
+            max_chars=900,
+        )}
+
         Based on the news briefing, get the F1 season schedule and identify:
         1. The most recent completed race (round number and name)
         2. The upcoming next race  
@@ -88,11 +146,49 @@ def build_news_crew(agents: dict) -> tuple[Crew, list[Task]]:
 def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, list[Task]]:
     """Deep telemetry analysis crew for the most recent race weekend."""
 
+    race_pace_memory = _preloaded_memory_block(
+        "telemetry memory: race pace",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"event {recent_event} recent race pace tyre degradation consistency anomaly",
+            department="telemetry",
+            date_filter="all",
+            max_results=4,
+            max_chars=1200,
+        ),
+    )
+    qualifying_memory = _preloaded_memory_block(
+        "telemetry memory: qualifying",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"event {recent_event} qualifying sector dominance theoretical best top speed setup",
+            department="telemetry",
+            date_filter="all",
+            max_results=4,
+            max_chars=1200,
+        ),
+    )
+    battle_memory = _preloaded_memory_block(
+        "telemetry memory: driver battles",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"event {recent_event} driver battle qualifying gap race gap sector comparison top teams",
+            department="telemetry",
+            date_filter="all",
+            max_results=4,
+            max_chars=1200,
+        ),
+    )
+
     t_lap = Task(
         description=f"""
+        {race_pace_memory}
+
         Perform a comprehensive race pace analysis for the most recent F1 race 
         (event: '{recent_event}', year: {SEASON}).
 
+        First call `retrieve_relevant_insights` with a query about recent race pace
+        and `department='telemetry'` so you know what telemetry findings already exist.
         First call `build_race_pace_evidence`. Treat that evidence packet as your
         primary source. Use raw telemetry/statistics tools only if the evidence packet
         clearly leaves a gap you must fill.
@@ -115,9 +211,13 @@ def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, l
 
     t_qual = Task(
         description=f"""
+        {qualifying_memory}
+
         Analyze the qualifying session for the most recent race weekend 
         (event: '{recent_event}', year: {SEASON}).
 
+        First call `retrieve_relevant_insights` with a qualifying-focused query and
+        `department='telemetry'` to avoid repeating old qualifying observations.
         First call `build_qualifying_evidence`. Treat that evidence packet as your
         main input. Only call raw qualifying/sector/car tools if a specific detail
         is missing from the packet.
@@ -140,9 +240,13 @@ def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, l
 
     t_compare = Task(
         description=f"""
+        {battle_memory}
+
         Run head-to-head telemetry comparisons for the top 4 teams' driver pairs
         from the qualifying session (event: '{recent_event}', year: {SEASON}).
 
+        First call `retrieve_relevant_insights` with a driver-battle query and
+        `department='telemetry'` so your scorecard builds on prior findings.
         First call `build_driver_battle_evidence`. Use that evidence packet as the
         primary source. Only drill into raw comparison tools if one battle needs
         deeper explanation.
@@ -178,9 +282,33 @@ def build_telemetry_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, l
 # CREW 3: Strategy & Constructor Analysis Crew
 # ══════════════════════════════════════════════════════════════════════════════
 def build_strategy_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, list[Task]]:
+    strategy_memory = _preloaded_memory_block(
+        "strategy department memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"event {recent_event} strategy tyre degradation pit stop undercut overcut safety car",
+            department="strategy",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+    )
+    constructor_memory = _preloaded_memory_block(
+        "constructor and development memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"event {recent_event} constructor pace trend technical development top speed qualifying race pace",
+            department="news",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+    )
 
     t_strategy = Task(
         description=f"""
+        {strategy_memory}
+
         Perform a deep post-race strategy analysis for event '{recent_event}', {SEASON}.
         
         Use the tyre strategy analysis tool to get all stint data, then:
@@ -206,6 +334,8 @@ def build_strategy_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, li
 
     t_constructor = Task(
         description=f"""
+        {constructor_memory}
+
         Analyze constructor championship performance across all recent races.
         
         Use the championship standings tool, then do car performance analysis
@@ -232,6 +362,8 @@ def build_strategy_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, li
 
     t_weather = Task(
         description=f"""
+        {strategy_memory}
+
         Analyze weather impact on performance for recent races and upcoming events.
         
         Use the weather analysis tool for the most recent race and qualifying sessions.
@@ -267,9 +399,42 @@ def build_strategy_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, li
 # CREW 4: Driver Form & Anomaly Detection Crew
 # ══════════════════════════════════════════════════════════════════════════════
 def build_driver_anomaly_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, list[Task]]:
+    driver_memory = _preloaded_memory_block(
+        "driver department memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"{SEASON} driver form teammate battle race day improvement qualifying pace",
+            department="driver",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+    )
+    anomaly_memory = _preloaded_memory_block(
+        "anomaly department memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"event {recent_event} anomaly autocorrelation degradation statistical pattern",
+            department="anomaly",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+    )
+    today_insights = _preloaded_memory_block(
+        "today's insight summaries",
+        lambda: _call_tool_func(
+            read_published_insights,
+            date_filter="today",
+            max_chars=1100,
+        ),
+        max_chars=1100,
+    )
 
     t_driver_form = Task(
         description=f"""
+        {driver_memory}
+
         Analyze individual driver form and performance trends for the {SEASON} season.
         
         Use championship standings to get the full driver picture, then deep-dive:
@@ -295,6 +460,8 @@ def build_driver_anomaly_crew(agents: dict, recent_event: str = "1") -> tuple[Cr
 
     t_anomaly = Task(
         description=f"""
+        {anomaly_memory}
+
         Hunt for statistical anomalies and hidden patterns in {SEASON} F1 data.
         
         Use the statistical patterns detection tool for the most recent race.
@@ -327,8 +494,12 @@ def build_driver_anomaly_crew(agents: dict, recent_event: str = "1") -> tuple[Cr
 
     t_challenge = Task(
         description=f"""
+        {today_insights}
+
         You are the devil's advocate. Review ALL insights published today using
-        the read_published_insights tool (filter: 'today').
+        the read_published_insights tool (filter: 'today'). If a specific claim needs
+        more context, use `retrieve_relevant_insights` with a focused query instead of
+        loading large historical content.
         
         For each insight:
         1. Identify the key claim being made
@@ -367,9 +538,42 @@ def build_driver_anomaly_crew(agents: dict, recent_event: str = "1") -> tuple[Cr
 # CREW 5: Race Prediction Crew
 # ══════════════════════════════════════════════════════════════════════════════
 def build_prediction_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, list[Task]]:
+    prediction_memory = _preloaded_memory_block(
+        "prediction department memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"next race prediction circuit suitability race pace qualifying form dark horse reliability",
+            department="prediction",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+    )
+    telemetry_prediction_memory = _preloaded_memory_block(
+        "telemetry memory for prediction",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query=f"recent telemetry race pace qualifying hierarchy event {recent_event}",
+            department="telemetry",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+    )
+    today_insights = _preloaded_memory_block(
+        "today's insight summaries",
+        lambda: _call_tool_func(
+            read_published_insights,
+            date_filter="today",
+            max_chars=1100,
+        ),
+        max_chars=1100,
+    )
 
     t_next_race_info = Task(
         description=f"""
+        {prediction_memory}
+
         Gather all available information about the NEXT F1 race.
         
         1. Use get_next_race_info to identify the upcoming race
@@ -391,10 +595,15 @@ def build_prediction_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, 
 
     t_prediction = Task(
         description=f"""
+        {today_insights}
+        {telemetry_prediction_memory}
+
         Generate a detailed, probability-weighted race prediction for the next F1 race.
         
         Read all today's published insights (use read_published_insights, filter='today')
-        to incorporate current form data. Also use championship standings.
+        to incorporate current form data. Then call `retrieve_relevant_insights` with
+        a next-race prediction query and `department='prediction'` or `department='telemetry'`
+        to pull only the most relevant prior memory. Also use championship standings.
         
         Your prediction must include:
         
@@ -434,6 +643,8 @@ def build_prediction_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, 
 
     t_championship = Task(
         description=f"""
+        {prediction_memory}
+
         Generate a championship outlook and prediction for the rest of the {SEASON} season.
         
         Use championship standings to get current points gaps, then:
@@ -471,10 +682,37 @@ def build_prediction_crew(agents: dict, recent_event: str = "1") -> tuple[Crew, 
 def build_synthesis_crew(agents: dict) -> tuple[Crew, list[Task]]:
     """Final crew that synthesizes everything into a research report."""
 
+    today_insights = _preloaded_memory_block(
+        "today's insight summaries",
+        lambda: _call_tool_func(
+            read_published_insights,
+            date_filter="today",
+            max_chars=1200,
+        ),
+        max_chars=1200,
+    )
+    synthesis_memory = _preloaded_memory_block(
+        "synthesis department memory",
+        lambda: _call_tool_func(
+            retrieve_relevant_insights,
+            query="intelligence report executive summary strongest discoveries narrative busters",
+            department="synthesis",
+            date_filter="all",
+            max_results=4,
+            max_chars=1100,
+        ),
+        max_chars=1100,
+    )
+
     t_synthesize = Task(
         description=f"""
+        {today_insights}
+        {synthesis_memory}
+
         You are the Chief Research Officer. Read all insights published today
-        (read_published_insights, filter='today').
+        (read_published_insights, filter='today'). Use `retrieve_relevant_insights`
+        for any section where you need prior context, so you work from compact ranked
+        memory instead of large raw files.
         
         Synthesize the day's research into a comprehensive F1 Intelligence Report:
         

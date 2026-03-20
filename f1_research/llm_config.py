@@ -4,9 +4,11 @@ Supports: Ollama (local) | OpenRouter (cloud, many models) | Groq (fast inferenc
 """
 
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv(override=True)
+ENV_PATH = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=ENV_PATH, override=True)
 
 # ── Backend selector ────────────────────────────────────────────────────────
 # NOTE: this is the default backend. The orchestrator can override at runtime
@@ -53,7 +55,7 @@ def get_runtime_llm_settings(backend: str | None = None, fast: bool = False, con
     max_tokens = 4096
 
     if small_model:
-        temperature = 0.35
+        temperature = 0.8
         timeout = 120
         max_tokens = 1600 if fast else 2200
 
@@ -117,13 +119,15 @@ def _ollama_llm(fast: bool, conservative: bool = False):
 
     settings = get_runtime_llm_settings("ollama", fast=fast, conservative=conservative)
 
-    # Use OpenAI-compatible protocol for Ollama which has native tool calling
-    litellm_model = f"openai/{model}"
+    # LiteLLM's native Ollama chat provider uses /api/chat and supports tool calling.
+    litellm_model = f"ollama_chat/{model}"
+    normalized_base_url = base_url.rstrip("/")
 
-    print(f"🦙 Ollama | model: {model} | endpoint: /v1/chat/completions | url: {base_url}")
+    print(f"🦙 Ollama | model: {model} | endpoint: /api/chat | url: {normalized_base_url}")
     return LLM(
         model=litellm_model,
-        base_url=f"{base_url.rstrip('/')}/v1",
+        base_url=normalized_base_url,
+        api_base=normalized_base_url,
         api_key="ollama",
         temperature=settings["temperature"],
         timeout=max(180, settings["timeout"]),

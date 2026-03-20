@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=Path(__file__).resolve().parent / ".env")
 
 sys.path.insert(0, '.')
 sys.path.insert(0, 'tools')

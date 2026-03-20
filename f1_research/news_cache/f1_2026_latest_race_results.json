@@ -1,55 +1,34 @@
 {
   "query": "F1 2026 latest race results",
-  "count": 8,
+  "count": 5,
   "results": [
     {
       "title": "F1 Standings 2026 After The Chinese Grand Prix",
       "url": "https://www.forbes.com/sites/yaraelshebiny/2026/03/15/f1-standings-2026-after-the-chinese-grand-prix/",
       "source": "Forbes",
       "date": "2026-03-15T15:10:00+00:00",
-      "summary": "Race winner Andrea Kimi Antonelli of Italy and Mercedes AMG Petronas F1 Team and Third placed Lewis Hamilton of Great Britain and Scuderia Ferrari on the podium during the F1 Grand Prix of China at Shanghai International Circuit on March 15,"
+      "summary": "At 19 years and 202 days, Antonelli became the second youngest F1 grand prix winner, trailing only behind Max Verstappen who claimed his maiden victory at 18 years and 228 days..."
     },
     {
       "title": "F1 team-mate 2026 head-to-head: Qualifying, Race, Sprint latest scores, results from Formula 1 season",
-      "url": "https://www.skysports.com/f1/news/12433/13516662/f1-team-mate-2026-head-to-head-qualifying-race-sprint-latest-scores-results-from-formula-1-season",
+      "url": "https://www.skysports.com/f1/news/12028/13516662/f1-team-mate-2026-head-to-head-qualifying-race-sprint-latest-scores-results-from-formula-1-season",
       "source": "Sky Sports",
       "date": "2026-03-09T11:24:00+00:00",
-      "summary": "Find the latest team-mate head-to-heads for the 2026 Formula 1 season including Charles Leclerc vs Lewis Hamilton at Ferrari and Lando Norris vs Oscar Piastri at McLaren; watch every F1 round live on Sky Sports F1,"
+      "summary": "Find the latest team-mate head-to-heads for the 2026 Formula 1 season including Charles Leclerc vs Lewis Hamilton at Ferrari and Lando Norris vs Oscar Piastri at McLaren; watch..."
     },
     {
       "title": "Best of the 2026 F1 Chinese Grand Prix: Podium Winners, Driver of the Day, Fastest Lap & More",
       "url": "https://www.msn.com/en-us/sports/motorsports/best-of-the-2026-f1-chinese-grand-prix-podium-winners-driver-of-the-day-fastest-lap-more/ar-AA1YF4RU",
       "source": "Heavy",
       "date": "2026-03-15T08:57:09+00:00",
-      "summary": "The second Formula 1 race of the 2026 season is also in the books \u2014 and with the official cancellation of the races in Bahrain and Saudi Arabia, the calendar now stands at 22 Grands Prix instead of the originally planned 24."
+      "summary": "The second Formula 1 race of the 2026 season is also in the books \u2014 and with the official cancellation of the races in Bahrain and Saudi Arabia, the calendar now stands at 22 Gr..."
     },
     {
-      "title": "What Happened In The 2026 Formula 1 Chinese Grand Prix?",
-      "url": "https://www.msn.com/en-us/sports/motorsports/what-happened-in-the-2026-formula-1-chinese-grand-prix/ar-AA1YLRCK",
-      "source": "AutoGuide",
-      "date": "2026-03-16T22:28:00+00:00",
-      "summary": "The 2026 Formula 1 season produced its first major breakthrough moment in Shanghai, as Kimi Antonelli secured his maiden Grand Prix victory at the Chinese Grand Prix, leading a dominant Mercedes 1-2 finish ahead of teammate George Russell."
-    },
-    {
-      "title": "2026 F1 Chinese Grand Prix - Race Results",
-      "url": "https://www.crash.net/f1/results/1091514/1/2026-f1-chinese-grand-prix-race-results",
-      "source": "Crash.Net",
-      "date": "2026-03-15T09:16:00+00:00",
-      "summary": "Kimi Antonelli scored the first win of his Formula 1 career, with victory at the Chinese Grand Prix ahead of Mercedes team-mate George Russell. Antonelli was calm beyond his years as he navigated another chaotic opening period to cruise to his first victory."
-    },
-    {
-      "title": "F1 Sprint Qualifying Results: Starting Grid Set at the Chinese GP",
-      "url": "https://www.msn.com/en-us/sports/other/f1-sprint-qualifying-results-starting-grid-set-at-the-chinese-gp/ar-AA1Yxy3u",
-      "source": "Athlon Sports",
-      "date": "2026-03-13T13:54:00+00:00",
-      "summary": "George Russell takes Sprint pole at the Chinese Grand Prix ahead of Kimi Antonelli as Mercedes lock out the front row. See the full Sprint Qualifying results and starting grid."
-    },
-    {
-      "title": "2026 Australian Grand Prix - F1 results (Albert Park)",
-      "url": "https://www.msn.com/en-gb/sport/motorsports/2026-australian-grand-prix-f1-results-albert-park/ar-AA1XKFVy",
-      "source": "PlanetF1",
-      "date": "2026-03-08T05:31:00+00:00",
-      "summary": "Here are the full F1 results from the 2026 Australian Grand Prix at Albert Park in"
+      "title": "F1 Netherlands GP 2026 Race Results",
+      "url": "https://www.mykhel.com/formula-1/netherlands-gp-results-r281/",
+      "source": "myKhel",
+      "date": "2026-03-03T19:56:00+00:00",
+      "summary": "Here's the winners of every Formula 1 this season. Get full race results, team performances, and updated driver standings on MyKhel.com. Watch Ferrari, Red Bull, and Mercedes ba..."
     },
     {
       "title": "F1 Results and Report as Thriller Ushers In New Era at 2026 Australian Grand Prix",
@@ -59,5 +38,5 @@
       "summary": "Check out the full results and report from the 2026 Formula 1 Australian Grand Prix."
     }
   ],
-  "fetched": "2026-03-19T00:46:40.889898"
+  "fetched": "2026-03-20T10:22:14.300206"
 }
